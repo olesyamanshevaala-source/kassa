@@ -139,23 +139,40 @@ tr.editing .ie{padding:7px 9px;font-size:13.5px}
 .modalbtns{display:flex;gap:10px;justify-content:flex-end}
 
 @media(max-width:640px){
-  .wrap{padding:16px 12px 48px}
-  h1{font-size:19px}.sub{font-size:12px}
+  body{font-size:16px}
+  .wrap{padding:14px 11px 64px}
+  .top{gap:12px}
+  .brand{gap:10px}
+  .logo{width:38px;height:38px;font-size:17px}
+  h1{font-size:20px}.sub{font-size:12px}
+  #syncBadge{font-size:12px}
+  .right{width:100%;gap:8px}
+  .right>div:first-child{flex:1 1 100%}
+  .rate{width:100%}
+  #copyBtn{flex:1}
+  .btn,.btn.ghost{min-height:46px;display:inline-flex;align-items:center;justify-content:center}
+  .maintabs{width:100%}
+  .maintabs button{flex:1;justify-content:center;padding:12px 8px}
   .tiles{grid-template-columns:1fr 1fr;gap:10px}
   .tile{padding:13px 14px}.tile .val{font-size:20px}
+  input,select,textarea{font-size:16px;min-height:46px}
   .grid.kassa,.grid.trip{grid-template-columns:1fr 1fr;gap:9px}
+  #fxCard .grid{grid-template-columns:1fr 1fr!important}
   .grid .field.wide{grid-column:1 / -1}
   .grid .field.act{grid-column:1 / -1}
-  .grid .field.act .btn{flex:1}
+  .grid .field.act .btn{flex:1;width:100%}
+  .seg{width:100%}.seg button{flex:1;padding:11px 8px}
   table{min-width:0}
   thead{display:none}
   .tbl,.rows,.rows tr,.rows td{display:block;width:100%}
-  .rows tr{border:1px solid var(--line);border-radius:12px;margin:0 0 10px;padding:4px 2px;background:var(--card)}
-  .rows td{border:none;padding:7px 12px;display:flex;justify-content:space-between;gap:14px;text-align:right;align-items:baseline}
+  .rows tr{border:1px solid var(--line);border-radius:12px;margin:0 0 10px;padding:6px 4px;background:var(--card)}
+  .rows td{border:none;padding:8px 12px;display:flex;justify-content:space-between;gap:14px;text-align:right;align-items:baseline}
   .rows td::before{content:attr(data-label);color:var(--muted);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.04em;text-align:left;flex:none}
-  .rows td.acts{justify-content:flex-end}.rows td.acts::before{display:none}
+  .rows td.acts{justify-content:flex-end;gap:6px}.rows td.acts::before{display:none}
+  .rows td.acts .editbtn,.rows td.acts .del,.rows td.acts .savebtn,.rows td.acts .cancelibtn{font-size:20px;padding:8px 12px}
   .rows td[data-label="Комментарий"],.rows td[data-label="За что"]{flex-direction:column;align-items:stretch;text-align:left;gap:2px}
   .usd{text-align:right}.tablewrap{overflow:visible}
+  .bartools{gap:10px}.linkbtn{font-size:14px}
 }
 </style>
 
