@@ -1,0 +1,786 @@
+<title>Касса по проектам</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
+<meta name="theme-color" content="#C67A3E">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Касса">
+<link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%20%22%D0%9A%D0%B0%D1%81%D1%81%D0%B0%20%D0%BF%D0%BE%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%B0%D0%BC%22%2C%20%22short_name%22%3A%20%22%D0%9A%D0%B0%D1%81%D1%81%D0%B0%22%2C%20%22start_url%22%3A%20%22.%22%2C%20%22scope%22%3A%20%22.%22%2C%20%22display%22%3A%20%22standalone%22%2C%20%22orientation%22%3A%20%22portrait%22%2C%20%22background_color%22%3A%20%22%23FBF5EC%22%2C%20%22theme_color%22%3A%20%22%23C67A3E%22%2C%20%22lang%22%3A%20%22ru%22%2C%20%22icons%22%3A%20%5B%7B%22src%22%3A%20%22data%3Aimage/png%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAFfklEQVR4nO3dv2tddRzH4ZtgsBTFQUohurhkUCjiWCGgLv4P7s4uDo2TS7v4B7iLsyC46VIwi7iUOphBEGkrrf2htrXFaBwkpU1zk3vv%2Bf44yft55uTc0/J5nc85t/fSpcnIbG6s7/Q%2BB%2Bo5e/7iUu9zeFzXkzHsTCZ9o2j%2Bwoaeg7SOodmLGXzm0SqE6i9i8BmidgjVDm7wKalWCMUPavCpqXQIyyUPZviprfSMFanJ4NNDiW0weAMYfnopMXuDAjD89DZ0BhdeIS2Gf/XM2rnar0EbVy9tXah5/EVvhxb6pVrDb%2BBz1AhikQjm/oUaw2/wc5UOYd4I5vrh0sNv8NlVMoR5Ipj5B0sOv8FnmlIhzBrBTO8CGX5aKTUfs87soZWUGn6Dz7xKbIPDNkHRj0JMY/hZRIu5OTCAEld/w88QQ%2BfnsBmeGoDhZyxqRlDtFsjwU1Ktedo3gKFXf8NPDUPmatpMN3kIhrF6KgBXf8as9BYougEMPy2UnLMnAvD5fo67vTNebAO4%2BtNSqXl7FICrPyken/UiG8DVnx5KzJ23QYm2PJkMu/1x9aenRedvd%2BZtAKIJgGgCINqgANz/MwZD5nDZ%2B/%2Bk2txY33ELRDQBEE0ARBMA0QRANAEQTQBEEwDRBEA0ARBNAEQTANEEQDQBEE0ARBMA0QRAtGd6n0Brp9/%2B8P0Tp9Ze6X0eY3Xlq48%2B2b57/Wbv82jFBiCaAIgmAKIJgGgCIJoAiCYAogmAaAIgmgCIJgCiCYBoAiCaAIgW93HoW9999sXSyolne5/HWP1z/9bvvc%2BhpbgA/v7z1xu9z4HxcAtENAEQbVAAVy9tXSh1IrCoIXMY9wzw/No7b648d/rF3ucxVnd%2B%2BPKbfx/evdf7PFqJC%2BDky2%2B85kvx0/2x9fW3SQF4BiDa4AA8B9DT0PmzAYhWJABbgB5KzJ0NQLRiAdgCtFRq3mwAohUNwBaghZJzVnwDiICaSs%2BXWyCiVQnAFqCGGnNVbQOIgJJqzVPVWyARUELNOar%2BadCrl7YurJ5ZO1f7dWb14Nrlre17v92u/TonX3r91eWVkydKHe/B9R9/2r5/806p402zs/3Xw9qvMY/aF9GlzY31nZovsGtMEbSw%2Bu7HH6y8sHq61PFubH76%2Bf1fvr9c6nhHQYs7iGbfB9j9w6SFwPxa3jo3fxvUcwEHaT0fXb4RZhuwV68LY9evRAqB3ncEo/hOsBDy9B78XaMIYNfevxRBHB9jGfi9RhXAXmP9S5vFqbceTlYKHu/2z9feu3l5q%2BARmUx8GI5wAiCaAIgmAKIJgGgCIJoAiCYAogmAaAIgmgCIJgCiCYBoAiCaAIgmAKIJgGgCIJoAiCYAogmAaAIgmgCIJgCiCYBoAiCaAIgmAKIJgGgCIJoAiCYAogmAaAIgWrP/KR7GyAYgmgCIJgCiCYBoAiCaAIgmAKIJgGgCIJoAiCYAogmAaAIgmgCIJgCiCYBoAiCaAIgmAKIJgGgCIJoAiCYAoi2fPX9xqfdJQA9nz19csgGIJgCiCYBoAiDa8mTy/8NA7xOBlnZn3gYgmgCI9igAt0GkeHzWbQCiPRGALcBxt3fGbQCiPRWALcBxtd9s2wBE2zcAW4DjZtpM2wBEmxqALcBxcdAsH7gBRMBRd9gMuwUi2qEB2AIcVbPM7kwbQAQcNbPO7My3QCLgqJhnVud6BhABYzfvjM79ECwCxmqR2VzoXSARMDaLzuTCb4OKgLEYMouD/h1ABPQ2dAYH/0OYCOilxOwVHd7NjfWdkseD/ZS86Bb9KIRtQG2lZ6zawNoGlFTr4lr9ii0Ehqh9V9HslkUIzKPV7XTze3YhcJDWz5FdH1rFwGTS982T0b1rI4rjbWzvFP4HtRKvBoodqIEAAAAASUVORK5CYII%3D%22%2C%20%22sizes%22%3A%20%22192x192%22%2C%20%22type%22%3A%20%22image/png%22%2C%20%22purpose%22%3A%20%22any%20maskable%22%7D%2C%20%7B%22src%22%3A%20%22data%3Aimage/png%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAP/klEQVR4nO3dz6pd5R3G8ZUYRaMVqQitBEopOKlIScFCBgEvoLNOOuxlmAvQe%2BmoFBy0CEKgGZe0iASKs5SqqA3ahtY2HZwes5OcP/vPWut9f%2B/z%2BdxA1ll7u5/vedeOuTDRpVs3rj9ofQ0Ac7j2zs0Lra%2BBJ3lRGjHwAEcEQhtu%2BgqMPcBuRMHy3OAFGHyAeQmC%2BbmhMzD4AOsSBIdzA/dk9AH6IAb246btwOgD9E0MbM%2BNOofRB6hJDJzNzTmF4QcYgxA4mZuywegDjE0MPORGTIYfII0QCA8Aww%2BQLTkEIn9www/ApsQQiPqBDT8AZ0kKgYgf1PADsIuEELjY%2BgKWZvwB2FXCdgxbOAkvHgDLG/U0YLgfyvADsITRQmCoRwDGH4CljLYxQ9TMaC8KAH0b4TSg/AmA8QdgbSNsT%2BkAGOEFAKCm6htU8gij%2Bk0HYCwVHwmUOwEw/gD0puI2lQqAijcYgAzVNqrEkUW1mwpAtgqPBLo/ATD%2BAFRTYbu6DoAKNxAATtL7hnUbAL3fOAA4T89b1mUA9HzDAGAXvW5ad19S6PVG9ebVN157u/U1ABy7e/vOu62voXe9fTGwq4sx/o8y8sAIxMFDPUVANxdi/A0%2BkCE9CHqJgC4uInX8DT5AZhD0EAHNLyBt/I0%2BwOmSYqB1BDT9w5PG3/ADbC8lBFpGQLM/OGH8jT7A4UaPgVYR0OQPHX38DT/A/EYOgRYRsPofOPL4G36A5Y0aAmtHwKp/2Kjjb/gB1jdiCKwZAav9QSOOv%2BEHaG%2B0EFgrAlb5twCMPwBLGe3zeK3NvLTGHzKS0d5oACM4/mwe7TRgSYufAIz027/xB%2BjbKJ/Ta2znos8ZRhn/Ud5QAElGOA1Y8vsAi50AGH8AWhrh83vJLV3lS4BVjfDmAUjmc/x0ixwtVP/t3xsGYDyVHwks8Shg9hMA4w9Ajyp/vi%2BxrbMGgPEHoGeVP%2Bfn3ljfAfi/ym8KALbn8/7IbAFQ%2Bbd/bwaALFU/9%2Bfc2lkCwPgDUE3Vz/%2B5Njf6EUDVFx%2BAeSTvwMEBUPW3/%2BQXHYCHKu7BHNsbeQJQ8cUGYDmJu3BQAFT87T/xRQbgfNX24dAN3jsAjD8Ao6m2E4dsccwjgGovKgBtpOzFXgFQ7bf/lBcTgHlU2o19NznmBAAAeGjnAPDbPwAJKu3HPts89AlApRcPgP6MvCM7BUCl3/5HftEAWE%2BVPdl1o4c%2BAQAATrZ1APjtH4BUVXZll60e7gSgyosEQC2j7ctWAVDpt38ASLbtZg91AjBanQHQl5F2ZpgAGOlFAaBfo%2BzNuQHg%2BB8Aatlmu4c4ARilxgCoYYTdOTMA/PYPADWdt%2BHlTwBGqDAA6qm%2BP%2BUDAADY3akBUOH4v3p9AVBb7zt01pY7AQCAQGUDoPfqAiBD1T06MQAqHP8DAOc7bdPLngAAAPsrGQBVj1sAGFPFXXoiABz/A8BYTtr2cicAFSsLgPFV26dyAQAAHE4AAECgRwKg9%2Bf/1Y5XAMjS8049vvFOAAAgkAAAgEACAAACfRsAnv8DwOF63qvNrXcCAACBBAAABBIAABCoRAD0/DwFAB5XYbcuTlP/XwAEAOZxvPklTgAAgHkJAAAIJAAAIJAAAIBAAgAAAnUfABX%2BKgUAPK73/eo%2BAACA%2BV30/wAAgCy3blx/4AQAAAIJAAAIJAAAIJAAAIBAAgAAAgkAAAgkAAAgkAAAgEACAAACCQAACCQAACCQAACAQAIAAAIJAAAIJAAAIJAAAIBAAgAAAgkAAAgkAAAgkAAAgEACAAACCQAACCQAACCQAACAQAIAAAIJAAAIJAAAIJAAAIBAAgAAAgkAAAgkAAAgkAAAgEACAAACCQAACCQAACCQAACAQAIAAAIJAAAIdKn1BZDt8pWrP37mpSvfb30d0ML9T%2B98fP9vH/2l9XWQSQDQ1OUrV19//gc/%2B0nr64AmPnzvAwFAKx4BAEAgAQAAgQQAAAQSAAAQSAAAQCABAACBBAAABBIAABBIAABAIAEAAIEEAAAEEgAAEEgAAEAgAQAAgQQAAAQSAAAQSAAAQCABAACBBAAABBIAABBIAABAIAEAAIEEAAAEEgAAEEgAAEAgAQAAgQQAAAQSAAAQSAAAQCABAACBBAAABBIAABBIAABAIAEAAIEEAAAEEgAAEEgAAEAgAQAAgQQAAAS61PoCyPbFH3/93pd//u37ra8DWvjvv77%2BZ%2BtrIJcAoKn/3L/31TTd%2B6r1dQCk8QgAAAIJAAAIJAAAIFD3AXD39p13W18DAOyq9/3qPgAAgPkJAAAIJAAAIJAAAIBAAgAAAgkAAAhUIgB6/6sUALCpwm6VCAAAYF7%2BMSCa%2Bu7VX/788pWrr7e%2BDmjh3p33/3Dvo9/dbH0dZBIANHXxmecvP/XcSy%2B2vg5o4eLTzz3b%2BhrIVeYRQIXnKQBQZa/KBAAAMB8BAACBBAAABCoVAFWeqwCQqdJOlQoAAGAeAgAAApULgErHKwDkqLZP5QIAADhcyQCoVlkAjK3iLpUMAADgMAIAAAKVDYCKxy0AjKfqHpUNAABgf6UDoGp1ATCGyjtUOgAAgP2UD4DK9QVAXdX3p3wAAAC7GyIAqlcYALWMsDtDBAAAsJthAmCEGgOgf6PszTABME3jvCgA9GmknRkqAACA7QwXACPVGQD9GG1fhguAaRrvRQKgrRF3ZcgAAADONmwAjFhrAKxv1D0ZNgCmadwXDYB1jLwjQwfANI394gGwnNH3Y/gAAACeFBEAo1ccAPNK2I2IAJimjBcTgMOl7EVMAExTzosKwH6SdiIqAKYp68UFYHtp%2BxAXANOU9yIDcLbEXYgMgGnKfLEBeFLqHsQGwDTlvugAHEnegegAmKbsFx8gWfrn/6XWF9CDu7fvvPvqG6%2B93fo6Ev373l8/uf/pnY9bX0dPnnr2xRee/s73Xml9HXP75h%2Bff/nN15990fo6evLN15993voaUqWP/zRN04VbN64/aH0RvRAB9OCFH1776ctv/uoXra9jbn//8L0PvvzTb37f%2BjrA%2BB%2BJfwSwyZsCYGw%2B5x8SAI/x5gAYk8/3R/kOwAmO3yQeCQDUZ/hP5gTgDN40ALX5HD%2BdADiHNw9ATT6/z%2BYRwBY8EgCow/BvxwnADrypAPrmc3p7TgB25DQAoD%2BGf3dOAPbkzQbQB5/H%2B3ECcACnAQDtGP7DCIAZCAGA9Rj%2BeQiAGQkBgOUY/nkJgAUIAYD5GP5lCIAFbb5pxQDA9oz%2B8gTASpwKAJzP8K9HAKzMqQDAo4x%2BGwKgocff9IIASGDw%2ByAAOiIIgBEZ/D4JgI6d9R%2BNOAB6YuTrEQBF%2BY9tXK9c%2BtH08putr2J%2BX33y%2BVt3b995q/V1AEf8WwAAEEgAAEAgAQAAgQQAAAQSAAAQSAAAQCABAACBBAAABBIAABBIAABAIAEAAIEEAAAEEgAAEEgAAEAgAQAAgQQAAAQSAAAQSAAAQCABAACBBAAABBIAABBIAABAIAEAAIEEAAAEEgAAEEgAAEAgAQAAgQQAAAQSAAAQSAAAQCABAACBBAAABBIAABBIAABAIAEAAIEEAAAEEgAAEEgAAEAgAQAAgQQAAAQSAAAQSAAAQCABAACBBAAABBIAABBIAABAIAEAAIEEAAAEEgAAEEgAAEAgAQAAgQQAAAQSAAAQSAAAQCABAACBBAAABBIAABBIAABAIAEAAIEEAAAEEgAAEEgAAEAgAQAAgQQAAAQSAAAQSAAAQCABAACBBAAABBIAABBIAABAIAEAAIEEAAAEEgAAEEgAAEAgAQAAgQQAAAQSAAAQSAAAQCABAACBBAAABBIAABBIAABAIAEAAIEEAAAEEgAAEEgAAEAgAQAAgQQAAAQSAAAQSAAAQCABAACBBAAABLpw68b1B60vAgBYlxMAAAgkAAAgkAAAgEACAAACCQAACCQAACCQAACAQAIAAAIJAAAIJAAAIJAAAIBAAgAAAgkAAAgkAAAgkAAAgEACAAACCQAACCQAACCQAACAQAIAAAIJAAAIJAAAIJAAAIBAAgAAAgkAAAgkAAAgkAAAgEACAAACCQAACCQAACCQAACAQAIAAAIJAAAIJAAAIJAAAIBAAgAAAgkAAAgkAAAgkAAAgEACAAACCQAACCQAACCQAACAQAIAAAIJAAAIJAAAIJAAAIBAAgAAAgkAAAgkAAAgkAAAgEACAAACCQAACCQAACCQAACAQAIAAAIJAAAIJAAAIJAAAIBAF6%2B9c/NC64sAANZz7Z2bF5wAAEAgAQAAgQQAAAQSAAAQSAAAQCABAACBBAAABLo4TUd/H7D1hQAAyzvefCcAABBIAABAIAEAAIEEAAAE%2BjYAfBEQAMa2ufVOAAAgkAAAgEACAAACPRIAvgcAAGN6fOOdAABAIAEAAIEEAAAEeiIAfA8AAMZy0rY7AQCAQAIAAAKdGAAeAwDAGE7bdCcAABBIAABAoFMDwGMAAKjtrC13AgAAgQQAAAQ6MwA8BgCAms7bcCcAABDo3ABwCgAAtWyz3U4AACCQAACAQFsFgMcAAFDDtpvtBAAAAm0dAE4BAKBvu2y1EwAACLRTADgFAIA%2B7brRTgAAINDOAeAUAAD6ss82OwEAgEB7BYBTAADow76b7AQAAALtHQBOAQCgrUO2%2BKATABEAAG0cusEeAQBAoIMDwCkAAKxrju11AgAAgWYJAKcAALCOuTZ3thMAEQAAy5pzaz0CAIBAswaAUwAAWMbcGzv7CYAIAIB5LbGtizwCEAEAMI%2BlNtV3AAAg0GIB4BQAAA6z5JYuegIgAgBgP0tv6OKPAEQAAOxmje30HQAACLRKADgFAIDtrLWZq50AiAAAONuaW7nqIwARAAAnW3sjV/8OgAgAgEe12MYmXwIUAQBwpNUmNvtbACIAgHQtt7DpXwMUAQCkar2Bzf8/AK1vAACsrYftax4A09THjQCANfSyeV0EwDT1c0MAYCk9bV03ATBNfd0YAJhTbxvXVQBMU383CAAO1eO2dRcA09TnjQKAffS6aV0GwDT1e8MAYFs9b1m3ATBNfd84ADhL7xvWdQBMU/83EAAeV2G7ur/ATbduXH/Q%2BhoA4DQVhv9Y9ycAmyrdWACyVNuoUgEwTfVuMADjq7hN5S54k0cCALRUcfiPlTsB2FT5xgNQW/UNKh0A01T/BQCgnhG2p/wPsMkjAQCWNMLwHyt/ArBppBcGgL6MtjFD/TCbnAYAMIfRhv/YkD/UJiEAwD5GHf5jQz0COMnoLyAA80vYjuF/wE1OAwA4S8LwH4v5QTcJAQA2JQ3/sbgfeJMQAMiWOPzHYn/wTUIAIEvy8B%2BLvwGbhADA2Az/Q27EKcQAwBiM/snclHMIAYCaDP/Z3JwdiAGAvhn97blRexIDAH0w%2Bvtx02YgBgDWZfQP5wYuQBAAzMvgz88NXYEgANiNwV%2BeG9yIKAA4YuzbcNM7JRCAURj4Pv0PUwf4OX0R2mAAAAAASUVORK5CYII%3D%22%2C%20%22sizes%22%3A%20%22512x512%22%2C%20%22type%22%3A%20%22image/png%22%2C%20%22purpose%22%3A%20%22any%20maskable%22%7D%5D%7D">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAFfklEQVR4nO3dv2tddRzH4ZtgsBTFQUohurhkUCjiWCGgLv4P7s4uDo2TS7v4B7iLsyC46VIwi7iUOphBEGkrrf2htrXFaBwkpU1zk3vv+f44yft55uTc0/J5nc85t/fSpcnIbG6s7/Q+B+o5e/7iUu9zeFzXkzHsTCZ9o2j+woaeg7SOodmLGXzm0SqE6i9i8BmidgjVDm7wKalWCMUPavCpqXQIyyUPZviprfSMFanJ4NNDiW0weAMYfnopMXuDAjD89DZ0BhdeIS2Gf/XM2rnar0EbVy9tXah5/EVvhxb6pVrDb+Bz1AhikQjm/oUaw2/wc5UOYd4I5vrh0sNv8NlVMoR5Ipj5B0sOv8FnmlIhzBrBTO8CGX5aKTUfs87soZWUGn6Dz7xKbIPDNkHRj0JMY/hZRIu5OTCAEld/w88QQ+fnsBmeGoDhZyxqRlDtFsjwU1Ktedo3gKFXf8NPDUPmatpMN3kIhrF6KgBXf8as9BYougEMPy2UnLMnAvD5fo67vTNebAO4+tNSqXl7FICrPyken/UiG8DVnx5KzJ23QYm2PJkMu/1x9aenRedvd+ZtAKIJgGgCINqgANz/MwZD5nDZ+/+k2txY33ELRDQBEE0ARBMA0QRANAEQTQBEEwDRBEA0ARBNAEQTANEEQDQBEE0ARBMA0QRAtGd6n0Brp9/+8P0Tp9Ze6X0eY3Xlq48+2b57/Wbv82jFBiCaAIgmAKIJgGgCIJoAiCYAogmAaAIgmgCIJgCiCYBoAiCaAIgW93HoW9999sXSyolne5/HWP1z/9bvvc+hpbgA/v7z1xu9z4HxcAtENAEQbVAAVy9tXSh1IrCoIXMY9wzw/No7b648d/rF3ucxVnd++PKbfx/evdf7PFqJC+Dky2+85kvx0/2x9fW3SQF4BiDa4AA8B9DT0PmzAYhWJABbgB5KzJ0NQLRiAdgCtFRq3mwAohUNwBaghZJzVnwDiICaSs+XWyCiVQnAFqCGGnNVbQOIgJJqzVPVWyARUELNOar+adCrl7YurJ5ZO1f7dWb14Nrlre17v92u/TonX3r91eWVkydKHe/B9R9/2r5/806p402zs/3Xw9qvMY/aF9GlzY31nZovsGtMEbSw+u7HH6y8sHq61PFubH76+f1fvr9c6nhHQYs7iGbfB9j9w6SFwPxa3jo3fxvUcwEHaT0fXb4RZhuwV68LY9evRAqB3ncEo/hOsBDy9B78XaMIYNfevxRBHB9jGfi9RhXAXmP9S5vFqbceTlYKHu/2z9feu3l5q+ARmUx8GI5wAiCaAIgmAKIJgGgCIJoAiCYAogmAaAIgmgCIJgCiCYBoAiCaAIgmAKIJgGgCIJoAiCYAogmAaAIgmgCIJgCiCYBoAiCaAIgmAKIJgGgCIJoAiCYAogmAaAIgWrP/KR7GyAYgmgCIJgCiCYBoAiCaAIgmAKIJgGgCIJoAiCYAogmAaAIgmgCIJgCiCYBoAiCaAIgmAKIJgGgCIJoAiCYAoi2fPX9xqfdJQA9nz19csgGIJgCiCYBoAiDa8mTy/8NA7xOBlnZn3gYgmgCI9igAt0GkeHzWbQCiPRGALcBxt3fGbQCiPRWALcBxtd9s2wBE2zcAW4DjZtpM2wBEmxqALcBxcdAsH7gBRMBRd9gMuwUi2qEB2AIcVbPM7kwbQAQcNbPO7My3QCLgqJhnVud6BhABYzfvjM79ECwCxmqR2VzoXSARMDaLzuTCb4OKgLEYMouD/h1ABPQ2dAYH/0OYCOilxOwVHd7NjfWdkseD/ZS86Bb9KIRtQG2lZ6zawNoGlFTr4lr9ii0Ehqh9V9HslkUIzKPV7XTze3YhcJDWz5FdH1rFwGTS982T0b1rI4rjbWzvFP4HtRKvBoodqIEAAAAASUVORK5CYII=">
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+:root{
+  --bg:#FBF5EC; --panel:#FFFDF8; --card:#FFF9F0; --raise:#FFFFFF;
+  --ink:#3B322A; --muted:#948A7A; --line:#ECE1D1; --line2:#F3EADC;
+  --accent:#C67A3E; --accent-ink:#8A4E1F; --accent-soft:#F5E6D4;
+  --in:#5E8C55; --in-soft:#E8F0DE; --out:#BC5B49; --out-soft:#F7E2DB;
+  --shadow:0 1px 2px rgba(80,60,40,.05),0 10px 26px -14px rgba(120,90,55,.28);
+  --radius:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#241E19; --panel:#2E2721; --card:#332C25; --raise:#3A322A;
+    --ink:#F3EADD; --muted:#B4A692; --line:#41382F; --line2:#3A322A;
+    --accent:#E29A5C; --accent-ink:#F3C79A; --accent-soft:#3E3125;
+    --in:#93C083; --in-soft:#2C3626; --out:#E38B79; --out-soft:#3C2A26;
+    --shadow:0 1px 2px rgba(0,0,0,.25),0 14px 30px -16px rgba(0,0,0,.5);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#241E19; --panel:#2E2721; --card:#332C25; --raise:#3A322A;
+  --ink:#F3EADD; --muted:#B4A692; --line:#41382F; --line2:#3A322A;
+  --accent:#E29A5C; --accent-ink:#F3C79A; --accent-soft:#3E3125;
+  --in:#93C083; --in-soft:#2C3626; --out:#E38B79; --out-soft:#3C2A26;
+  --shadow:0 1px 2px rgba(0,0,0,.25),0 14px 30px -16px rgba(0,0,0,.5);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Manrope",-apple-system,"Segoe UI",Roboto,sans-serif;font-size:15px;line-height:1.45;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:22px 20px 60px}
+.num{font-variant-numeric:tabular-nums}
+h1{font-size:22px;font-weight:800;letter-spacing:-.01em;margin:0}
+.sub{color:var(--muted);font-size:13px;margin-top:2px}
+.top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:16px}
+.brand{display:flex;gap:12px;align-items:center}
+.logo{width:42px;height:42px;border-radius:12px;flex:none;background:radial-gradient(120% 120% at 30% 20%,#E7A968,var(--accent));display:grid;place-items:center;color:#fff;font-weight:800;font-size:19px;box-shadow:var(--shadow)}
+.right{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+
+/* main view tabs */
+.maintabs{display:flex;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:4px;margin-bottom:18px;width:max-content;max-width:100%}
+.maintabs button{border:none;background:none;font:inherit;font-weight:700;font-size:14px;color:var(--muted);padding:9px 18px;border-radius:9px;cursor:pointer;display:flex;align-items:center;gap:8px}
+.maintabs button.on{background:var(--accent);color:#fff;box-shadow:var(--shadow)}
+
+.chips{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+.chip{border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:8px 14px;border-radius:999px;cursor:pointer;font:inherit;font-weight:600;font-size:13.5px;display:flex;align-items:center;gap:8px;transition:.15s}
+.chip:hover{border-color:var(--accent)}
+.chip.on{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:var(--shadow)}
+.chip .dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.chip.on .dot{background:#fff}
+.chip.add{border-style:dashed;color:var(--accent-ink);font-weight:700}
+.bartools{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
+.linkbtn{background:none;border:none;color:var(--accent-ink);font:inherit;font-weight:700;font-size:13px;cursor:pointer}
+.linkbtn:hover{text-decoration:underline;text-underline-offset:2px}
+.linkbtn.danger{color:var(--out)}
+.barname{font-weight:800;font-size:15px}
+.rate{display:flex;align-items:center;gap:6px;background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:5px 10px;font-size:12.5px;font-weight:700;color:var(--muted)}
+.rate input{width:72px;border:none;background:none;padding:4px 2px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums}
+.rate input:focus{outline:none}
+.refrate{color:var(--muted);font-size:12.5px}
+
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
+@media(max-width:760px){.tiles{grid-template-columns:repeat(2,1fr)}}
+.tile{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow)}
+.tile .lab{font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:700}
+.tile .val{font-size:25px;font-weight:800;margin-top:7px;letter-spacing:-.02em}
+.tile.inc .val{color:var(--in)} .tile.exp .val{color:var(--out)}
+.tile.bal{background:linear-gradient(160deg,var(--accent-soft),var(--panel))}
+.tile.bal .val{color:var(--accent-ink)}
+.tile small{display:block;color:var(--muted);font-size:12px;font-weight:600;margin-top:3px}
+
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.form{padding:16px 18px;margin-bottom:16px}
+.form h3{margin:0 0 12px;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700}
+.seg{display:inline-flex;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:3px;gap:3px}
+.seg button{border:none;background:none;font:inherit;font-weight:700;font-size:13.5px;padding:7px 16px;border-radius:8px;cursor:pointer;color:var(--muted)}
+.seg button.on-in{background:var(--in);color:#fff}
+.seg button.on-out{background:var(--out);color:#fff}
+.grid{display:grid;gap:10px;align-items:end;margin-top:12px}
+.grid.kassa{grid-template-columns:1.1fr 1.5fr .9fr auto .9fr 1.5fr auto}
+.grid.trip{grid-template-columns:1.1fr 1.1fr 1.5fr .9fr auto .9fr auto}
+@media(max-width:900px){.grid{grid-template-columns:1fr 1fr}}
+.field{display:flex;flex-direction:column;gap:5px;min-width:0}
+.field label{font-size:11.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+input,select,textarea{font:inherit;color:var(--ink);background:var(--raise);border:1px solid var(--line);border-radius:9px;padding:9px 11px;width:100%;min-width:0}
+textarea{resize:vertical;min-height:96px;line-height:1.5}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+.btn{font:inherit;font-weight:700;border:none;border-radius:9px;padding:10px 18px;cursor:pointer;background:var(--accent);color:#fff;box-shadow:var(--shadow)}
+.btn:hover{filter:brightness(1.04)}
+.btn.ghost{background:var(--panel);color:var(--accent-ink);border:1px solid var(--line);box-shadow:none}
+.hint{color:var(--muted);font-size:12px;margin-top:9px}
+
+.notecard{padding:16px 18px;margin-bottom:16px}
+.notecard h3{margin:0 0 6px;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700}
+.savedmark{color:var(--in);font-size:12px;font-weight:700;margin-left:8px;opacity:0;transition:.2s}
+
+.tablewrap{overflow-x:auto;border-radius:var(--radius)}
+table{width:100%;border-collapse:collapse;min-width:760px}
+th{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700;text-align:left;padding:12px 12px;border-bottom:1px solid var(--line);background:var(--card)}
+td{padding:11px 12px;border-bottom:1px solid var(--line2);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td.r,th.r{text-align:right}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.pill.in{background:var(--in-soft);color:var(--in)}
+.pill.out{background:var(--out-soft);color:var(--out)}
+.pill.cat{background:var(--accent-soft);color:var(--accent-ink)}
+.amt-in{color:var(--in);font-weight:700}
+.amt-out{color:var(--out);font-weight:700}
+.mut{color:var(--muted)}
+.usd{font-size:11.5px;color:var(--muted);display:block}
+.del,.editbtn,.savebtn,.cancelibtn{border:none;background:none;color:var(--muted);cursor:pointer;font-size:15px;line-height:1;padding:5px 7px;border-radius:6px}
+.del:hover,.cancelibtn:hover{background:var(--out-soft);color:var(--out)}
+.editbtn:hover{background:var(--accent-soft);color:var(--accent-ink)}
+.savebtn{color:var(--in);font-weight:800}
+.savebtn:hover{background:var(--in-soft)}
+tr.editing{background:var(--accent-soft)}
+tr.editing .ie{padding:7px 9px;font-size:13.5px}
+@media(max-width:640px){ tr.editing{background:var(--card)} .rows tr.editing td{align-items:stretch} }
+.foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:14px 18px;border-top:1px solid var(--line)}
+.empty{padding:36px 20px;text-align:center;color:var(--muted)}
+.tot{font-weight:800;font-size:15px}
+[hidden]{display:none!important}
+.modal{position:fixed;inset:0;background:rgba(45,32,20,.45);display:flex;align-items:center;justify-content:center;z-index:100;padding:20px}
+.modalbox{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:22px;width:100%;max-width:400px}
+.modalbox h3{margin:0 0 14px;font-size:17px;font-weight:800}
+.modalbox input{margin-bottom:16px}
+.modalbox p{margin:0 0 18px;color:var(--muted);line-height:1.5}
+.modalbtns{display:flex;gap:10px;justify-content:flex-end}
+
+@media(max-width:640px){
+  .wrap{padding:16px 12px 48px}
+  h1{font-size:19px}.sub{font-size:12px}
+  .tiles{grid-template-columns:1fr 1fr;gap:10px}
+  .tile{padding:13px 14px}.tile .val{font-size:20px}
+  .grid.kassa,.grid.trip{grid-template-columns:1fr 1fr;gap:9px}
+  .grid .field.wide{grid-column:1 / -1}
+  .grid .field.act{grid-column:1 / -1}
+  .grid .field.act .btn{flex:1}
+  table{min-width:0}
+  thead{display:none}
+  .tbl,.rows,.rows tr,.rows td{display:block;width:100%}
+  .rows tr{border:1px solid var(--line);border-radius:12px;margin:0 0 10px;padding:4px 2px;background:var(--card)}
+  .rows td{border:none;padding:7px 12px;display:flex;justify-content:space-between;gap:14px;text-align:right;align-items:baseline}
+  .rows td::before{content:attr(data-label);color:var(--muted);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.04em;text-align:left;flex:none}
+  .rows td.acts{justify-content:flex-end}.rows td.acts::before{display:none}
+  .rows td[data-label="Комментарий"],.rows td[data-label="За что"]{flex-direction:column;align-items:stretch;text-align:left;gap:2px}
+  .usd{text-align:right}.tablewrap{overflow:visible}
+}
+</style>
+
+<div class="modal" id="lockScreen" style="z-index:200;display:none">
+  <div class="modalbox" style="max-width:340px;text-align:center">
+    <div class="logo" style="margin:0 auto 14px">₸</div>
+    <h3 style="margin:0 0 4px">Касса — вход</h3>
+    <p style="margin:0 0 14px;color:var(--muted)">Войдите, чтобы открыть кассу</p>
+    <input type="email" id="lockEmail" placeholder="Почта" autocomplete="username" style="margin-bottom:10px">
+    <input type="password" id="lockInput" placeholder="Пароль" autocomplete="current-password" style="margin-bottom:10px">
+    <div id="lockMsg" style="color:var(--out);font-size:13px;font-weight:700;min-height:18px;margin-bottom:8px"></div>
+    <button class="btn" id="lockBtn" type="button" style="width:100%">Войти</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="top">
+    <div class="brand">
+      <div class="logo">₸</div>
+      <div>
+        <h1>Касса по проектам</h1>
+        <div class="sub">Приход/расход по проектам · заметки и расходы по командировкам · ₸ и $ с вашим курсом</div>
+        <div id="syncBadge" title="Где хранятся данные. «В облаке» — данные сохранены на сервере и не пропадут при обновлениях и на других устройствах." style="margin-top:5px;font-size:12px;font-weight:700;color:#b98900">● Только в этом браузере</div>
+      </div>
+    </div>
+    <div class="right">
+      <div style="display:flex;flex-direction:column;gap:2px">
+        <div class="rate" title="Курс $. Тянется автоматически из интернета; можно ввести вручную.">
+          <span>Курс&nbsp;$</span><input type="number" id="usdRate" step="any" min="0"><span>₸</span><button id="rateRefresh" type="button" title="Обновить курс из интернета" style="border:none;background:none;cursor:pointer;color:var(--muted);font-size:15px;padding:0 2px;line-height:1">↻</button>
+        </div>
+        <div id="rateHint" class="refrate" style="text-align:right;font-size:11px;padding-right:4px"></div>
+      </div>
+      <button class="btn ghost" id="copyBtn">Выгрузить в Excel</button>
+      <button class="btn ghost" id="backupBtn" title="Сохранить резервную копию всех данных в файл">Копия ⭳</button>
+      <button class="btn ghost" id="restoreBtn" title="Восстановить данные из резервной копии">Восстановить</button>
+      <button class="btn ghost" id="pwBtn" title="Выйти из аккаунта">Выйти</button>
+      <input type="file" id="restoreFile" accept="application/json,.json" hidden>
+      <button class="btn ghost" id="themeBtn" title="Сменить тему">☾</button>
+    </div>
+  </div>
+
+  <div class="maintabs">
+    <button id="tabKassa" class="on" type="button">💰 Кассы</button>
+    <button id="tabTrips" type="button">🧳 Командировки</button>
+  </div>
+
+  <!-- ===== KASSA VIEW ===== -->
+  <div id="kassaView">
+    <div class="chips" id="kProjects"></div>
+    <div class="bartools">
+      <span class="barname" id="kName"></span>
+      <button class="linkbtn" id="kRename">Переименовать</button>
+      <button class="linkbtn danger" id="kDelete">Удалить проект</button>
+    </div>
+
+    <div class="tiles" id="kTiles"></div>
+
+    <div class="card form">
+      <h3 id="kFormTitle">Новая операция</h3>
+      <div class="seg" role="tablist">
+        <button id="segIn" class="on-in" type="button">Поступление</button>
+        <button id="segOut" type="button">Выбытие</button>
+      </div>
+      <div class="grid kassa">
+        <div class="field"><label>Дата</label><input type="date" id="fDate"></div>
+        <div class="field wide"><label id="fPartyLab">От кого</label><input type="text" id="fParty" placeholder="Напр., Ильшат"></div>
+        <div class="field"><label>Сумма</label><input type="number" id="fAmount" placeholder="0" step="any" min="0"></div>
+        <div class="field" style="max-width:92px"><label>Валюта</label><select id="fCur"><option value="KZT">₸</option><option value="USD">$</option></select></div>
+        <div class="field" id="rateWrap" hidden><label>Курс, ₸/$</label><input type="number" id="fRate" placeholder="0" step="any" min="0"></div>
+        <div class="field wide"><label>Комментарий</label><input type="text" id="fComment" placeholder="За что / назначение"></div>
+        <div class="field act"><label>&nbsp;</label><div style="display:flex;gap:8px"><button class="btn" id="addBtn" type="button">Добавить</button><button class="btn ghost" id="cancelBtn" type="button" hidden>Отмена</button></div></div>
+      </div>
+      <div class="hint" id="convHint"></div>
+    </div>
+
+    <div class="card form" id="fxCard">
+      <h3>Обмен валюты (покупка / продажа $)</h3>
+      <div class="seg">
+        <button id="fxBuy" class="on-in" type="button">Купила $ за ₸</button>
+        <button id="fxSell" type="button">Продала $ за ₸</button>
+      </div>
+      <div class="grid" style="grid-template-columns:1fr 1fr 1fr 1fr 1.6fr auto">
+        <div class="field"><label>Дата</label><input type="date" id="xDate"></div>
+        <div class="field"><label id="xKztLab">Отдаю, ₸</label><input type="number" id="xKzt" step="any" min="0" placeholder="0"></div>
+        <div class="field"><label>Курс, ₸/$</label><input type="number" id="xRate" step="any" min="0" placeholder="0"></div>
+        <div class="field"><label id="xUsdLab">Получаю, $</label><input type="number" id="xUsd" step="any" min="0" placeholder="0"></div>
+        <div class="field wide"><label>Комментарий</label><input type="text" id="xComment" placeholder="Напр., купила $ из взноса"></div>
+        <div class="field act"><label>&nbsp;</label><div style="display:flex;gap:8px"><button class="btn" id="xAdd" type="button">Добавить</button></div></div>
+      </div>
+      <div class="hint">₸ уходят из кассы, $ остаются в кассе (или наоборот). ₸ ÷ курс = $ — считается автоматически.</div>
+    </div>
+
+    <div class="card">
+      <div class="tablewrap">
+        <table class="tbl">
+          <thead><tr>
+            <th>Дата</th><th>Операция</th><th>Детали</th><th class="r">Сумма ₸</th><th class="r">Сумма $</th><th class="r">Курс</th><th>Комментарий</th><th></th>
+          </tr></thead>
+          <tbody class="rows" id="kRows"></tbody>
+        </table>
+      </div>
+      <div class="foot"><div class="mut" id="kCount"></div><div class="tot">Остаток: <span id="kFootBal" class="num"></span></div></div>
+    </div>
+  </div>
+
+  <!-- ===== TRIPS VIEW ===== -->
+  <div id="tripsView" hidden>
+    <div class="chips" id="tTrips"></div>
+    <div class="bartools">
+      <span class="barname" id="tName"></span>
+      <input type="text" id="tDates" placeholder="Даты / город (напр., Гуанчжоу, 5–12 окт 2026)" style="max-width:340px">
+      <button class="linkbtn" id="tRename">Переименовать</button>
+      <button class="linkbtn danger" id="tDelete">Удалить</button>
+    </div>
+
+    <div class="tiles" id="tTiles"></div>
+
+    <div class="card notecard">
+      <h3>Заметки по командировке<span class="savedmark" id="tSaved">сохранено</span></h3>
+      <textarea id="tNotes" placeholder="Свободные заметки: цели поездки, договорённости, что уточнить по расходам, контакты, наличные на руках и т.д."></textarea>
+    </div>
+
+    <div class="card form">
+      <h3 id="tFormTitle">Новый расход</h3>
+      <div class="grid trip">
+        <div class="field"><label>Дата</label><input type="date" id="eDate"></div>
+        <div class="field"><label>Категория</label><select id="eCat"><option>Транспорт</option><option>Проживание</option><option>Питание</option><option>Такси</option><option>Виза/сборы</option><option>Прочее</option></select></div>
+        <div class="field wide"><label>За что</label><input type="text" id="eWhat" placeholder="Напр., авиабилеты Алматы–Гуанчжоу"></div>
+        <div class="field"><label>Сумма</label><input type="number" id="eAmount" placeholder="0" step="any" min="0"></div>
+        <div class="field" style="max-width:92px"><label>Валюта</label><select id="eCur"><option value="KZT">₸</option><option value="USD">$</option></select></div>
+        <div class="field" id="eRateWrap" hidden><label>Курс, ₸/$</label><input type="number" id="eRate" placeholder="0" step="any" min="0"></div>
+        <div class="field act"><label>&nbsp;</label><div style="display:flex;gap:8px"><button class="btn" id="eAddBtn" type="button">Добавить</button><button class="btn ghost" id="eCancelBtn" type="button" hidden>Отмена</button></div></div>
+      </div>
+      <div class="hint" id="eConvHint"></div>
+    </div>
+
+    <div class="card">
+      <div class="tablewrap">
+        <table class="tbl">
+          <thead><tr>
+            <th>Дата</th><th>Категория</th><th>За что</th><th class="r">Сумма</th><th class="r">Курс</th><th class="r">Сумма, ₸</th><th></th>
+          </tr></thead>
+          <tbody class="rows" id="eRows"></tbody>
+        </table>
+      </div>
+      <div class="foot"><div class="mut" id="eCount"></div><div class="tot">Итого расходов: <span id="eFootTot" class="num"></span></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="modal" hidden>
+  <div class="modalbox">
+    <h3 id="modalTitle"></h3>
+    <input type="text" id="modalInput" hidden>
+    <p id="modalMsg" hidden></p>
+    <div class="modalbtns">
+      <button class="btn ghost" id="modalCancel" type="button">Отмена</button>
+      <button class="btn" id="modalOk" type="button">ОК</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ========================================================================
+   НАСТРОЙКА FIREBASE  —  вставьте сюда данные ВАШЕГО проекта Firebase.
+   Где взять: см. файл ИНСТРУКЦИЯ. Пока не вставите — приложение работает
+   локально на этом устройстве (без синхронизации).
+   ======================================================================== */
+const FIREBASE_CONFIG = {
+  apiKey: "ВСТАВЬТЕ_apiKey",
+  authDomain: "ВСТАВЬТЕ_authDomain",
+  projectId: "ВСТАВЬТЕ_projectId",
+  storageBucket: "ВСТАВЬТЕ_storageBucket",
+  messagingSenderId: "ВСТАВЬТЕ_messagingSenderId",
+  appId: "ВСТАВЬТЕ_appId"
+};
+/* ======================================================================== */
+const KZT=new Intl.NumberFormat('ru-RU',{maximumFractionDigits:2});
+const money=(v,cur)=>KZT.format(Math.round((v+Number.EPSILON)*100)/100)+' '+(cur==='USD'?'$':'₸');
+const todayISO=()=>new Date().toISOString().slice(0,10);
+const uid=()=>Math.random().toString(36).slice(2,9);
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmtDate=iso=>{if(!iso)return '';const p=iso.split('-');return p.length===3?`${p[2]}.${p[1]}.${p[0]}`:iso;};
+const kzt=e=>e.cur==='USD'?(e.amount||0)*(e.rate||0):(e.amount||0);
+
+const STORE='kassa_local_v1';
+const EMBEDDED_STATE={"_rev": 1788348417153, "kassa": {"active": "p2", "projects": [{"entries": [{"_bal": 4560000, "amount": 10000, "comment": "взнос ФЗ", "cur": "USD", "date": "2026-09-02", "id": "lw0yrgg", "party": "ДА", "rate": 456, "type": "in"}, {"comment": "", "date": "2026-09-02", "dir": "sell", "id": "0g44gsv", "kzt": 4560000, "rate": 456, "type": "fx", "usd": 10000}], "id": "p1", "name": "Фуд завод"}, {"entries": [{"_bal": 26000000, "amount": 26000000, "comment": "взнос", "cur": "KZT", "date": "2026-08-12", "id": "aqsa0jy", "party": "Ильшат", "rate": null, "type": "in"}, {"amount": 2400000, "comment": "", "cur": "KZT", "date": "2026-09-02", "id": "3f41flz", "party": "мясорубка", "rate": null, "refRate": 456, "type": "out"}, {"comment": "", "date": "2026-08-21", "dir": "buy", "id": "x4na4s9", "kzt": 9160000, "rate": 458, "type": "fx", "usd": 20000}, {"amount": 400, "comment": "", "cur": "USD", "date": "2026-09-02", "id": "5diaahf", "party": "транспорт/отели Китай", "rate": null, "refRate": null, "type": "out"}, {"amount": 13000, "comment": "", "cur": "USD", "date": "2026-09-02", "id": "3zlfz2o", "party": "Пароконвектомат", "rate": null, "refRate": null, "type": "out"}, {"amount": 10000000, "comment": "в подотчет", "cur": "KZT", "date": "2026-09-02", "id": "7l4666c", "party": "Астана", "rate": null, "refRate": 458, "type": "out"}, {"amount": 2500000, "comment": "забирала в подотчет Олеся в Китай", "cur": "KZT", "date": "2026-09-02", "id": "mmleokj", "party": "Китай", "rate": null, "refRate": 458, "type": "out"}, {"amount": 890000, "comment": "", "cur": "KZT", "date": "2026-09-02", "id": "9d5rz00", "party": "оплата поездки в Китай 50% от Астаны", "rate": null, "refRate": 458, "type": "in"}, {"amount": 902000, "comment": "возврат в кассу", "cur": "KZT", "date": "2026-09-02", "id": "n1ft44c", "party": "остаток с поездки в Китай", "rate": null, "refRate": 458, "type": "in"}, {"amount": 5600, "comment": "6.67 курс к юань (приняла 5604 $)", "cur": "USD", "date": "2026-09-02", "id": "r6n2wny", "party": "Покупка флоупак/ящики 200шт", "rate": null, "refRate": null, "type": "out"}, {"amount": 2000, "comment": "", "cur": "KZT", "date": "2026-09-02", "id": "ql6xhi4", "party": "Покупка флоупак/ящики 200шт", "rate": null, "refRate": 458, "type": "out"}], "id": "p2", "name": "O-Live"}]}, "trips": {"active": "t1", "list": [{"dates": "", "expenses": [{"amount": 500000, "cat": "Транспорт", "cur": "KZT", "date": "2026-09-02", "id": "wniw525", "rate": null, "refRate": 458, "what": "самолет А-Г"}, {"amount": 569000, "cat": "Транспорт", "cur": "KZT", "date": "2026-09-02", "id": "i5yg2o3", "rate": null, "refRate": 458, "what": "самолет У-А"}, {"amount": 150000, "cat": "Питание", "cur": "KZT", "date": "2026-09-02", "id": "vppof31", "rate": null, "refRate": 458, "what": ""}, {"amount": 180000, "cat": "Проживание", "cur": "KZT", "date": "2026-09-02", "id": "mc5i06f", "rate": null, "refRate": 458, "what": "Г 3 ночи"}, {"amount": 42700, "cat": "Проживание", "cur": "KZT", "date": "2026-09-02", "id": "29d5tly", "rate": null, "refRate": 458, "what": "В 1 ночь"}, {"amount": 106000, "cat": "Проживание", "cur": "KZT", "date": "2026-09-02", "id": "ic3ghqg", "rate": null, "refRate": 458, "what": "Уси 2 ночи"}, {"amount": 50000, "cat": "Транспорт", "cur": "KZT", "date": "2026-09-02", "id": "afff060", "rate": null, "refRate": 458, "what": ""}, {"amount": 183200, "cat": "Транспорт", "cur": "KZT", "date": "2026-09-02", "id": "ap5fyg5", "rate": null, "refRate": 458, "what": "400 $ по курсу 458"}], "id": "t1", "name": "Китай — оборудование", "notes": "Цель: отбор заводов (флоупак, волчки, формовка котлет, дозаторы, пароконвектоматы). Держать чеки на всё; такси — наличными $."}, {"dates": "", "expenses": [{"amount": 136000, "cat": "Транспорт", "cur": "KZT", "date": "2026-07-13", "id": "buf7stt", "rate": null, "refRate": 458, "what": "самолет"}], "id": "6x8msaj", "name": "Шымкент", "notes": ""}]}, "usdRate": 458, "view": "kassa"};
+let state=load();
+
+function seed(){
+  return {view:'kassa', usdRate:495,
+    kassa:{active:'p1',projects:[
+      {id:'p1',name:'Фуд завод',entries:[
+        {id:uid(),type:'in',date:'2026-08-01',party:'Ильшат',amount:26000000,cur:'KZT',rate:null,comment:'Инвестиция (пример)'},
+        {id:uid(),type:'in',date:'2026-08-03',party:'Кредит Bank RBK',amount:50000000,cur:'KZT',rate:null,comment:'Заём (пример)'},
+        {id:uid(),type:'fx',date:'2026-08-04',dir:'buy',kzt:14850000,usd:30000,rate:495,comment:'Купила $ из взноса — лежат в кассе (пример)'},
+        {id:uid(),type:'out',date:'2026-08-05',party:'Поставщик, Китай',amount:20000,cur:'USD',rate:495,comment:'Аванс за флоупак, из кассовых $ (пример)'},
+        {id:uid(),type:'out',date:'2026-08-08',party:'Поставщики сырья',amount:20000000,cur:'KZT',rate:null,comment:'Закуп (пример)'}
+      ]},
+      {id:'p2',name:'O-Live',entries:[
+        {id:uid(),type:'in',date:'2026-08-10',party:'Выручка, точки',amount:8000000,cur:'KZT',rate:null,comment:'Продажи недели (пример)'}
+      ]}
+    ]},
+    trips:{active:'t1',list:[
+      {id:'t1',name:'Китай — оборудование',dates:'Гуанчжоу, 5–12 окт 2026',
+       notes:'Пример. Цель: отбор заводов (флоупак, волчки, формовка котлет, дозаторы, пароконвектоматы). Держать чеки на всё; такси — наличными $. Проверить лимит на карте.',
+       expenses:[
+        {id:uid(),date:'2026-10-05',cat:'Транспорт',what:'Авиабилеты Алматы–Гуанчжоу',amount:520000,cur:'KZT',rate:null},
+        {id:uid(),date:'2026-10-05',cat:'Проживание',what:'Отель, 7 ночей',amount:840,cur:'USD',rate:495},
+        {id:uid(),date:'2026-10-06',cat:'Такси',what:'Трансфер по заводам',amount:60,cur:'USD',rate:495}
+       ]}
+    ]}
+  };
+}
+function load(){
+  try{const raw=localStorage.getItem(STORE);if(raw){const s=JSON.parse(raw);if(s.usdRate==null)s.usdRate=495;return s;}}catch(e){}
+  // migrate old v1
+  try{const old=localStorage.getItem('kassa_projects_v1');if(old){const o=JSON.parse(old);const s=seed();s.kassa={active:o.active,projects:o.projects};return s;}}catch(e){}
+  {const s=JSON.parse(JSON.stringify(EMBEDDED_STATE));s._seed=true;return s;} // стартовая заготовка: не перезаписывает облако
+}
+function saveLocal(){try{localStorage.setItem(STORE,JSON.stringify(state));}catch(e){}}
+function save(){state._rev=Date.now();saveLocal();setSync("saving");fbPush();}
+
+/* ---------- надёжное облачное хранилище (db) ---------- */
+/* Данные дублируются на сервер артефакта: не пропадают при обновлениях кода,
+   очистке кэша браузера и подтягиваются на другом устройстве по той же ссылке. */
+let _db=null,_dbDoc=null,_dbOn=false,_pushT=null;
+let _svT;
+function setSync(s){const el=$('syncBadge');if(!el)return;const m={saving:['\u27F3','#C67A3E','Синхронизация…'],saved:['\u2601','#2e8b57','Синхронизировано'],local:['\u25CF','#b98900','Только на этом устройстве'],err:['!','#B23B2A','Нет связи с сервером']};const x=m[s]||m.local;el.textContent=x[0]+' '+x[2];el.style.color=x[1];}
+function flashSaved(){setSync('saving');clearTimeout(_svT);_svT=setTimeout(()=>setSync('saved'),160);}
+function realDownload(filename,data,mime){try{const blob=new Blob([data],{type:mime||'text/plain;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=filename;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(url);a.remove();},120);return true;}catch(e){return false;}}
+function backupJSON(){const name='kassa-kopiya-'+todayISO()+'.json';if(realDownload(name,JSON.stringify(state,null,2),'application/json'))toast('Копия сохранена: '+name);else toast('Не удалось сохранить копию');}
+function isBusy(){return (!$('modal').hidden)||kInlineId||eInlineId||editingId||eEditingId;}
+async function initDb(){
+  try{_db=(window.claude&&window.claude.use)?await window.claude.use('db'):null;}catch(e){_db=null;}
+  if(!_db){setSync('off');return;}
+  try{_dbDoc=_db.doc('app/state');}catch(e){_db=null;setSync('off');return;}
+  try{
+    const snap=await _dbDoc.get();
+    const r=(snap&&snap.exists)?snap.data():null;
+    if(r&&(r._rev||0)>(state._rev||0)){adoptRemote(r);}
+    else{await _dbDoc.set(state);}
+    _dbOn=true;setSync('saved');
+  }catch(e){setSync('off');return;}
+  try{_dbDoc.onSnapshot(sn=>{const r=(sn&&sn.exists)?sn.data():null;if(!r)return;if((r._rev||0)>(state._rev||0)&&!isBusy())adoptRemote(r);},()=>{});}catch(e){}
+}
+function dbPush(){
+  if(!_dbOn||!_dbDoc)return;
+  setSync('saving');
+  clearTimeout(_pushT);
+  const snapshot=JSON.stringify(state);
+  _pushT=setTimeout(()=>{_dbDoc.set(JSON.parse(snapshot)).then(()=>setSync('saved')).catch(()=>setSync('off'));},700);
+}
+function adoptRemote(r){
+  state=r;
+  if(state.usdRate==null)state.usdRate=495;
+  saveLocal();
+  const el=$('usdRate');if(el)el.value=state.usdRate||'';
+  $('tabKassa').className=state.view==='kassa'?'on':'';
+  $('tabTrips').className=state.view==='trips'?'on':'';
+  $('kassaView').hidden=state.view!=='kassa';
+  $('tripsView').hidden=state.view!=='trips';
+  renderAll();
+}
+function setUsd(r){if(r&&r>0){state.usdRate=r;const el=$('usdRate');if(el)el.value=r;}}
+function refFor(cur,rate,existing){return cur==='USD'?rate:(existing!=null?existing:(state.usdRate||null));}
+
+/* ---------- view switch ---------- */
+function setView(v){
+  state.view=v;save();
+  $('tabKassa').className=v==='kassa'?'on':'';
+  $('tabTrips').className=v==='trips'?'on':'';
+  $('kassaView').hidden=v!=='kassa';
+  $('tripsView').hidden=v!=='trips';
+  renderAll();
+}
+$('tabKassa').onclick=()=>setView('kassa');
+$('tabTrips').onclick=()=>setView('trips');
+
+function renderAll(){ state.view==='kassa'?renderKassa():renderTrips(); }
+
+/* ===================== KASSA ===================== */
+let formType='in',editingId=null,kInlineId=null,fxDir='buy';
+function kActive(){return state.kassa.projects.find(p=>p.id===state.kassa.active)||state.kassa.projects[0];}
+function dKZT(e){ if(e.type==='fx') return e.dir==='buy'?-(e.kzt||0):(e.kzt||0); if(e.cur!=='USD') return e.type==='in'?(e.amount||0):-(e.amount||0); return 0; }
+function dUSD(e){ if(e.type==='fx') return e.dir==='buy'?(e.usd||0):-(e.usd||0); if(e.cur==='USD') return e.type==='in'?(e.amount||0):-(e.amount||0); return 0; }
+
+function renderKassa(){
+  const pc=$('kProjects');pc.innerHTML='';
+  state.kassa.projects.forEach(p=>{
+    const b=document.createElement('button');
+    b.className='chip'+(p.id===state.kassa.active?' on':'');
+    b.innerHTML='<span class="dot"></span>'+esc(p.name);
+    b.onclick=()=>{state.kassa.active=p.id;save();renderKassa();};
+    pc.appendChild(b);
+  });
+  const add=document.createElement('button');add.className='chip add';add.textContent='+ Новый проект';add.onclick=addProject;pc.appendChild(add);
+
+  const p=kActive();
+  $('kName').textContent='Проект: '+p.name;
+  const entries=[...p.entries].sort((a,b)=>(a.date||'').localeCompare(b.date||''));
+  const balKZT=entries.reduce((s,e)=>s+dKZT(e),0);
+  const balUSD=entries.reduce((s,e)=>s+dUSD(e),0);
+  const rate=state.usdRate||0;
+  const totalKZT=balKZT+balUSD*rate;
+
+  $('kTiles').innerHTML=`
+    <div class="tile bal"><div class="lab">Остаток ₸</div><div class="val num">${money(balKZT)}</div><small>тенге в кассе</small></div>
+    <div class="tile bal"><div class="lab">Остаток $</div><div class="val num">${money(balUSD,'USD')}</div><small>доллары в кассе</small></div>
+    <div class="tile"><div class="lab">Итого в ₸</div><div class="val num">${money(totalKZT)}</div><small>по курсу ${KZT.format(rate)} ₸/$</small></div>
+    <div class="tile"><div class="lab">Операций</div><div class="val num">${entries.length}</div><small>проект «${esc(p.name)}»</small></div>`;
+
+  const rows=$('kRows');
+  if(!entries.length){rows.innerHTML=`<tr><td colspan="8"><div class="empty">Пока нет операций. Добавьте операцию или обмен валюты выше.</div></td></tr>`;}
+  else rows.innerHTML=entries.map(e=>{
+    if(e.id===kInlineId) return kEditRow(e);
+    const dk=dKZT(e),du=dUSD(e);
+    let opPill,details;
+    if(e.type==='fx'){opPill='<span class="pill cat">Обмен $</span>';details=e.dir==='buy'?'Покупка $ за ₸':'Продажа $ за ₸';}
+    else{const inn=e.type==='in';opPill=`<span class="pill ${inn?'in':'out'}">${inn?'Приход':'Расход'}</span>`;details=esc(e.party||'')||'<span class=mut>—</span>';}
+    const mv=(v,cur)=> v===0?'<span class="mut">—</span>':`<span class="${v>0?'amt-in':'amt-out'}">${v>0?'+':'−'}${money(Math.abs(v),cur)}</span>`;
+    const rateCell=e.type==='fx'?KZT.format(e.rate||0):(e.cur==='USD'?(e.rate?KZT.format(e.rate):'—'):(e.refRate?`<span class="refrate" title="курс $ на эту дату, справочно">≈ ${KZT.format(e.refRate)}</span>`:'—'));
+    return `<tr>
+      <td class="num mut" data-label="Дата">${fmtDate(e.date)}</td>
+      <td data-label="Операция">${opPill}</td>
+      <td data-label="Детали">${details}</td>
+      <td class="r num" data-label="Сумма ₸">${mv(dk,'KZT')}</td>
+      <td class="r num" data-label="Сумма $">${mv(du,'USD')}</td>
+      <td class="r num mut" data-label="Курс">${rateCell}</td>
+      <td class="mut" data-label="Комментарий">${esc(e.comment||'')||'—'}</td>
+      <td class="acts" style="white-space:nowrap"><button class="editbtn" data-id="${e.id}" title="Редактировать">✎</button><button class="del" data-id="${e.id}" title="Удалить">✕</button></td>
+    </tr>`;}).join('');
+  rows.querySelectorAll('.del').forEach(b=>b.onclick=()=>{p.entries=p.entries.filter(x=>x.id!==b.dataset.id);save();renderKassa();});
+  rows.querySelectorAll('.editbtn').forEach(b=>b.onclick=()=>{kInlineId=b.dataset.id;renderKassa();});
+  rows.querySelectorAll('.savebtn').forEach(b=>b.onclick=()=>kSaveInline(b.dataset.id,b.closest('tr')));
+  rows.querySelectorAll('.cancelibtn').forEach(b=>b.onclick=()=>{kInlineId=null;renderKassa();});
+  $('kCount').textContent=entries.length?entries.length+' операций в кассе':'';
+  $('kFootBal').textContent=`${money(balKZT)} · ${money(balUSD,'USD')}`;
+}
+function kEditRow(e){
+  if(e.type==='fx') return `<tr class="editing">
+    <td data-label="Дата"><input type="date" class="ie" data-f="date" value="${e.date||''}"></td>
+    <td data-label="Операция"><select class="ie" data-f="dir"><option value="buy"${e.dir==='buy'?' selected':''}>Покупка $</option><option value="sell"${e.dir==='sell'?' selected':''}>Продажа $</option></select></td>
+    <td class="mut" data-label="Детали">Обмен валюты</td>
+    <td data-label="Сумма ₸"><input type="number" step="any" min="0" class="ie" data-f="kzt" value="${e.kzt||''}"></td>
+    <td data-label="Сумма $"><input type="number" step="any" min="0" class="ie" data-f="usd" value="${e.usd||''}"></td>
+    <td data-label="Курс"><input type="number" step="any" min="0" class="ie" data-f="rate" value="${e.rate||''}"></td>
+    <td data-label="Комментарий"><input type="text" class="ie" data-f="comment" value="${esc(e.comment||'')}"></td>
+    <td class="acts" style="white-space:nowrap"><button class="savebtn" data-id="${e.id}">✓</button><button class="cancelibtn" data-id="${e.id}">✕</button></td>
+  </tr>`;
+  return `<tr class="editing">
+    <td data-label="Дата"><input type="date" class="ie" data-f="date" value="${e.date||''}"></td>
+    <td data-label="Операция"><select class="ie" data-f="type"><option value="in"${e.type==='in'?' selected':''}>Приход</option><option value="out"${e.type==='out'?' selected':''}>Расход</option></select></td>
+    <td data-label="Детали"><input type="text" class="ie" data-f="party" value="${esc(e.party||'')}"></td>
+    <td data-label="Сумма"><div style="display:flex;gap:6px"><input type="number" step="any" min="0" class="ie" data-f="amount" value="${e.amount}"><select class="ie" data-f="cur" style="max-width:60px"><option value="KZT"${e.cur==='KZT'?' selected':''}>₸</option><option value="USD"${e.cur==='USD'?' selected':''}>$</option></select></div></td>
+    <td class="mut" data-label="—">—</td>
+    <td data-label="Курс"><input type="number" step="any" min="0" class="ie" data-f="rate" value="${e.rate||''}" placeholder="справ."></td>
+    <td data-label="Комментарий"><input type="text" class="ie" data-f="comment" value="${esc(e.comment||'')}"></td>
+    <td class="acts" style="white-space:nowrap"><button class="savebtn" data-id="${e.id}">✓</button><button class="cancelibtn" data-id="${e.id}">✕</button></td>
+  </tr>`;
+}
+function kSaveInline(id,tr){
+  const g=f=>tr.querySelector('[data-f="'+f+'"]');
+  const e=kActive().entries.find(x=>x.id===id);if(!e){kInlineId=null;renderKassa();return;}
+  if(g('dir')){ // обмен
+    const rate=parseFloat(g('rate').value)||0;if(rate<=0){toast('Укажите курс ₸/$');return;}
+    let k=parseFloat(g('kzt').value)||0,u=parseFloat(g('usd').value)||0;
+    if(k<=0&&u<=0){toast('Укажите сумму ₸ или $');return;}
+    if(k<=0)k=u*rate;if(u<=0)u=k/rate;setUsd(rate);
+    Object.assign(e,{dir:g('dir').value,date:g('date').value||todayISO(),kzt:k,usd:u,rate,comment:g('comment').value.trim()});
+  } else {
+    const amount=parseFloat(g('amount').value);if(!amount||amount<=0){toast('Введите сумму больше нуля');return;}
+    const cur=g('cur').value;const rate=parseFloat(g('rate').value)||null;
+    if(cur==='USD'&&rate)setUsd(rate);
+    Object.assign(e,{type:g('type').value,date:g('date').value||todayISO(),party:g('party').value.trim(),amount,cur,rate,refRate:refFor(cur,rate,e.refRate),comment:g('comment').value.trim()});
+  }
+  kInlineId=null;save();renderKassa();
+}
+function setType(t){formType=t;$('segIn').className=t==='in'?'on-in':'';$('segOut').className=t==='out'?'on-out':'';$('fPartyLab').textContent=t==='in'?'От кого':'Куда';$('fParty').placeholder=t==='in'?'Напр., Ильшат':'Напр., Поставщик';if(!editingId)$('kFormTitle').textContent=t==='in'?'Новое поступление':'Новое выбытие';}
+$('segIn').onclick=()=>setType('in');$('segOut').onclick=()=>setType('out');
+$('fCur').onchange=()=>{$('rateWrap').hidden=$('fCur').value!=='USD';kHint();};
+['fAmount','fRate'].forEach(id=>$(id).addEventListener('input',kHint));
+function kHint(){const usd=$('fCur').value==='USD',a=parseFloat($('fAmount').value)||0,r=parseFloat($('fRate').value)||0;$('convHint').textContent=usd&&a&&r?`= ${money(a*r)} по курсу ${KZT.format(r)} ₸/$`:'';}
+function kCollect(){const amount=parseFloat($('fAmount').value);if(!amount||amount<=0){toast('Введите сумму больше нуля');return null;}const cur=$('fCur').value;const rate=cur==='USD'?(parseFloat($('fRate').value)||null):null;if(cur==='USD'&&rate)setUsd(rate);return{type:formType,date:$('fDate').value||todayISO(),party:$('fParty').value.trim(),amount,cur,rate,refRate:refFor(cur,rate),comment:$('fComment').value.trim()};}
+function kClear(){$('fParty').value='';$('fAmount').value='';$('fComment').value='';$('fRate').value='';kHint();}
+$('addBtn').onclick=()=>{const d=kCollect();if(!d)return;if(editingId){const e=kActive().entries.find(x=>x.id===editingId);if(e)Object.assign(e,d);kExitEdit();}else kActive().entries.push(Object.assign({id:uid()},d));save();kClear();renderKassa();};
+function kStartEdit(id){const e=kActive().entries.find(x=>x.id===id);if(!e)return;editingId=id;setType(e.type);$('fDate').value=e.date;$('fParty').value=e.party||'';$('fAmount').value=e.amount;$('fCur').value=e.cur;$('rateWrap').hidden=e.cur!=='USD';$('fRate').value=e.cur==='USD'?(e.rate||''):'';$('fComment').value=e.comment||'';kHint();$('addBtn').textContent='Сохранить';$('cancelBtn').hidden=false;$('kFormTitle').textContent='Редактирование операции';window.scrollTo({top:0,behavior:'smooth'});}
+function kExitEdit(){editingId=null;$('addBtn').textContent='Добавить';$('cancelBtn').hidden=true;$('kFormTitle').textContent=formType==='in'?'Новое поступление':'Новое выбытие';}
+$('cancelBtn').onclick=()=>{kExitEdit();kClear();};
+/* обмен валюты */
+function setFxDir(d){fxDir=d;$('fxBuy').className=d==='buy'?'on-in':'';$('fxSell').className=d==='sell'?'on-out':'';$('xKztLab').textContent=d==='buy'?'Отдаю, ₸':'Получаю, ₸';$('xUsdLab').textContent=d==='buy'?'Получаю, $':'Отдаю, $';}
+$('fxBuy').onclick=()=>setFxDir('buy');$('fxSell').onclick=()=>setFxDir('sell');
+function xCalc(){const k=parseFloat($('xKzt').value)||0,r=parseFloat($('xRate').value)||0;if(k>0&&r>0)$('xUsd').value=Math.round((k/r)*100)/100;}
+['xKzt','xRate'].forEach(id=>$(id).addEventListener('input',xCalc));
+$('xAdd').onclick=()=>{const rate=parseFloat($('xRate').value)||0;if(rate<=0){toast('Укажите курс ₸/$');return;}let k=parseFloat($('xKzt').value)||0,u=parseFloat($('xUsd').value)||0;if(k<=0&&u<=0){toast('Укажите сумму ₸ или $');return;}if(k<=0)k=u*rate;if(u<=0)u=k/rate;setUsd(rate);kActive().entries.push({id:uid(),type:'fx',date:$('xDate').value||todayISO(),dir:fxDir,kzt:k,usd:u,rate,comment:$('xComment').value.trim()});save();$('xKzt').value='';$('xUsd').value='';$('xComment').value='';renderKassa();};
+async function addProject(){const n=await promptModal('Новый проект / касса','');if(!n||!n.trim())return;const id=uid();state.kassa.projects.push({id,name:n.trim(),entries:[]});state.kassa.active=id;save();renderKassa();}
+$('kRename').onclick=async()=>{const p=kActive();const n=await promptModal('Переименовать проект',p.name);if(n&&n.trim()){p.name=n.trim();save();renderKassa();}};
+$('kDelete').onclick=async()=>{const p=kActive();if(state.kassa.projects.length<=1){toast('Нельзя удалить единственный проект. Создайте другой, затем удалите этот.');return;}if(await confirmModal('Удалить проект «'+p.name+'» со всеми операциями?')){state.kassa.projects=state.kassa.projects.filter(x=>x.id!==p.id);state.kassa.active=state.kassa.projects[0].id;save();renderKassa();}};
+
+/* ===================== TRIPS ===================== */
+let eEditingId=null,notesTimer=null,eInlineId=null;
+function tActive(){return state.trips.list.find(t=>t.id===state.trips.active)||state.trips.list[0];}
+function eEditRow(e){
+  const cats=['Транспорт','Проживание','Питание','Такси','Виза/сборы','Прочее'];
+  return `<tr class="editing">
+    <td data-label="Дата"><input type="date" class="ie" data-f="date" value="${e.date||''}"></td>
+    <td data-label="Категория"><select class="ie" data-f="cat">${cats.map(c=>`<option${e.cat===c?' selected':''}>${c}</option>`).join('')}</select></td>
+    <td data-label="За что"><input type="text" class="ie" data-f="what" value="${esc(e.what||'')}"></td>
+    <td data-label="Сумма"><div style="display:flex;gap:6px"><input type="number" step="any" min="0" class="ie" data-f="amount" value="${e.amount}"><select class="ie" data-f="cur" style="max-width:60px"><option value="KZT"${e.cur==='KZT'?' selected':''}>₸</option><option value="USD"${e.cur==='USD'?' selected':''}>$</option></select></div></td>
+    <td data-label="Курс"><input type="number" step="any" min="0" class="ie" data-f="rate" value="${e.rate||''}" placeholder="—"></td>
+    <td class="mut" data-label="Сумма, ₸">пересчёт</td>
+    <td class="acts" style="white-space:nowrap"><button class="savebtn" data-id="${e.id}" title="Сохранить">✓</button><button class="cancelibtn" data-id="${e.id}" title="Отмена">✕</button></td>
+  </tr>`;
+}
+function eSaveInline(id,tr){
+  const g=f=>tr.querySelector('[data-f="'+f+'"]');
+  const amount=parseFloat(g('amount').value);if(!amount||amount<=0){toast('Введите сумму больше нуля');return;}
+  const cur=g('cur').value;const rate=cur==='USD'?(parseFloat(g('rate').value)||0):null;
+  if(cur==='USD'&&(!rate||rate<=0)){toast('Укажите курс ₸/$');return;}
+  if(cur==='USD')setUsd(rate);
+  const e=tActive().expenses.find(x=>x.id===id);if(e)Object.assign(e,{date:g('date').value||todayISO(),cat:g('cat').value,what:g('what').value.trim(),amount,cur,rate,refRate:refFor(cur,rate,e.refRate)});
+  eInlineId=null;save();renderTrips();
+}
+function renderTrips(){
+  const pc=$('tTrips');pc.innerHTML='';
+  if(!state.trips.list.length){ // ensure at least ability to add
+    pc.innerHTML='';
+  }
+  state.trips.list.forEach(t=>{
+    const b=document.createElement('button');
+    b.className='chip'+(t.id===state.trips.active?' on':'');
+    b.innerHTML='<span class="dot"></span>'+esc(t.name);
+    b.onclick=()=>{state.trips.active=t.id;save();renderTrips();};
+    pc.appendChild(b);
+  });
+  const add=document.createElement('button');add.className='chip add';add.textContent='+ Новая командировка';add.onclick=addTrip;pc.appendChild(add);
+
+  const t=tActive();
+  if(!t){$('tName').textContent='';$('tTiles').innerHTML='';$('eRows').innerHTML='';$('tNotes').value='';$('eFootTot').textContent='';$('eCount').textContent='';return;}
+  $('tName').textContent=t.name;
+  $('tDates').value=t.dates||'';
+  $('tNotes').value=t.notes||'';
+
+  const exp=[...t.expenses].sort((a,b)=>(a.date||'').localeCompare(b.date||''));
+  const total=exp.reduce((s,e)=>s+kzt(e),0);
+  const usd=exp.filter(e=>e.cur==='USD').length;
+  const byCat={};exp.forEach(e=>byCat[e.cat]=(byCat[e.cat]||0)+kzt(e));
+  const topCat=Object.entries(byCat).sort((a,b)=>b[1]-a[1])[0];
+
+  $('tTiles').innerHTML=`
+    <div class="tile exp"><div class="lab">Итого расходов</div><div class="val num">${money(total)}</div><small>${exp.length} записей</small></div>
+    <div class="tile"><div class="lab">Записей в $</div><div class="val num">${usd}</div><small>с конвертацией по курсу</small></div>
+    <div class="tile"><div class="lab">Больше всего</div><div class="val num" style="font-size:19px">${topCat?esc(topCat[0]):'—'}</div><small>${topCat?money(topCat[1]):''}</small></div>
+    <div class="tile bal"><div class="lab">Командировка</div><div class="val num" style="font-size:17px">${esc(t.name)}</div><small>${esc(t.dates||'')}</small></div>`;
+
+  const rows=$('eRows');
+  if(!exp.length){rows.innerHTML=`<tr><td colspan="7"><div class="empty">Пока нет расходов. Добавьте первый выше.</div></td></tr>`;}
+  else rows.innerHTML=exp.map(e=>{
+    if(e.id===eInlineId) return eEditRow(e);
+    return `<tr>
+      <td class="num mut" data-label="Дата">${fmtDate(e.date)}</td>
+      <td data-label="Категория"><span class="pill cat">${esc(e.cat||'Прочее')}</span></td>
+      <td data-label="За что">${esc(e.what||'')||'—'}</td>
+      <td class="r num amt-out" data-label="Сумма">${money(e.amount,e.cur)}</td>
+      <td class="r num" data-label="Курс">${e.cur==='USD'?KZT.format(e.rate||0):(e.refRate?`<span class="refrate" title="курс $ на эту дату, справочно">≈ ${KZT.format(e.refRate)}</span>`:'—')}</td>
+      <td class="r num" style="font-weight:700" data-label="Сумма, ₸">${money(kzt(e))}${e.cur==='USD'?`<span class="usd">${money(e.amount,'USD')} × ${KZT.format(e.rate||0)}</span>`:''}</td>
+      <td class="acts" style="white-space:nowrap"><button class="editbtn" data-id="${e.id}" title="Редактировать">✎</button><button class="del" data-id="${e.id}" title="Удалить">✕</button></td>
+    </tr>`;}).join('');
+  rows.querySelectorAll('.del').forEach(b=>b.onclick=()=>{t.expenses=t.expenses.filter(x=>x.id!==b.dataset.id);save();renderTrips();});
+  rows.querySelectorAll('.editbtn').forEach(b=>b.onclick=()=>{eInlineId=b.dataset.id;renderTrips();});
+  rows.querySelectorAll('.savebtn').forEach(b=>b.onclick=()=>eSaveInline(b.dataset.id,b.closest('tr')));
+  rows.querySelectorAll('.cancelibtn').forEach(b=>b.onclick=()=>{eInlineId=null;renderTrips();});
+  $('eCount').textContent=exp.length?exp.length+' записей':'';
+  $('eFootTot').textContent=money(total);
+}
+$('tDates').oninput=()=>{const t=tActive();if(t){t.dates=$('tDates').value;save();}};
+$('tNotes').oninput=()=>{const t=tActive();if(!t)return;t.notes=$('tNotes').value;clearTimeout(notesTimer);notesTimer=setTimeout(()=>{save();const m=$('tSaved');m.style.opacity='1';setTimeout(()=>m.style.opacity='0',1200);},400);};
+$('eCur').onchange=()=>{$('eRateWrap').hidden=$('eCur').value!=='USD';eHint();};
+['eAmount','eRate'].forEach(id=>$(id).addEventListener('input',eHint));
+function eHint(){const usd=$('eCur').value==='USD',a=parseFloat($('eAmount').value)||0,r=parseFloat($('eRate').value)||0;$('eConvHint').textContent=usd&&a&&r?`= ${money(a*r)} по курсу ${KZT.format(r)} ₸/$`:'';}
+function eCollect(){const amount=parseFloat($('eAmount').value);if(!amount||amount<=0){toast('Введите сумму больше нуля');return null;}const cur=$('eCur').value;const rate=cur==='USD'?(parseFloat($('eRate').value)||0):null;if(cur==='USD'&&(!rate||rate<=0)){toast('Укажите курс ₸/$');return null;}if(cur==='USD')setUsd(rate);return{date:$('eDate').value||todayISO(),cat:$('eCat').value,what:$('eWhat').value.trim(),amount,cur,rate,refRate:refFor(cur,rate)};}
+function eClear(){$('eWhat').value='';$('eAmount').value='';$('eRate').value='';eHint();}
+$('eAddBtn').onclick=()=>{const t=tActive();if(!t){toast('Сначала создайте командировку');return;}const d=eCollect();if(!d)return;if(eEditingId){const e=t.expenses.find(x=>x.id===eEditingId);if(e)Object.assign(e,d);eExitEdit();}else t.expenses.push(Object.assign({id:uid()},d));save();eClear();renderTrips();};
+function eStartEdit(id){const t=tActive();const e=t.expenses.find(x=>x.id===id);if(!e)return;eEditingId=id;$('eDate').value=e.date;$('eCat').value=e.cat||'Прочее';$('eWhat').value=e.what||'';$('eAmount').value=e.amount;$('eCur').value=e.cur;$('eRateWrap').hidden=e.cur!=='USD';$('eRate').value=e.cur==='USD'?(e.rate||''):'';eHint();$('eAddBtn').textContent='Сохранить';$('eCancelBtn').hidden=false;$('tFormTitle').textContent='Редактирование расхода';window.scrollTo({top:0,behavior:'smooth'});}
+function eExitEdit(){eEditingId=null;$('eAddBtn').textContent='Добавить';$('eCancelBtn').hidden=true;$('tFormTitle').textContent='Новый расход';}
+$('eCancelBtn').onclick=()=>{eExitEdit();eClear();};
+async function addTrip(){const n=await promptModal('Новая командировка','');if(!n||!n.trim())return;const id=uid();state.trips.list.push({id,name:n.trim(),dates:'',notes:'',expenses:[]});state.trips.active=id;save();renderTrips();}
+$('tRename').onclick=async()=>{const t=tActive();if(!t)return;const n=await promptModal('Переименовать командировку',t.name);if(n&&n.trim()){t.name=n.trim();save();renderTrips();}};
+$('tDelete').onclick=async()=>{const t=tActive();if(!t)return;if(await confirmModal('Удалить командировку «'+t.name+'» со всеми расходами и заметками?')){state.trips.list=state.trips.list.filter(x=>x.id!==t.id);state.trips.active=state.trips.list[0]?state.trips.list[0].id:null;save();renderTrips();}};
+
+/* ---------- copy for excel (context aware) ---------- */
+function buildExport(){
+  let rows,name;
+  if(state.view==='kassa'){const p=kActive();name='Касса — '+p.name;
+    rows=[['Дата','Операция','Детали','Сумма ₸','Сумма $','Курс','Комментарий']];
+    [...p.entries].sort((a,b)=>(a.date||'').localeCompare(b.date||'')).forEach(e=>{
+      const op=e.type==='fx'?('Обмен $ ('+(e.dir==='buy'?'покупка':'продажа')+')'):(e.type==='in'?'Приход':'Расход');
+      const rate=e.type==='fx'?e.rate:(e.cur==='USD'?(e.rate||''):(e.refRate||''));
+      rows.push([fmtDate(e.date),op,e.type==='fx'?'':(e.party||''),Math.round(dKZT(e))||'',Math.round(dUSD(e))||'',rate,e.comment||'']);
+    });
+  } else {const t=tActive();if(!t)return null;name='Командировка — '+t.name;
+    rows=[['Дата','Категория','За что','Сумма','Валюта','Курс','Сумма ₸']];
+    [...t.expenses].sort((a,b)=>(a.date||'').localeCompare(b.date||'')).forEach(e=>rows.push([fmtDate(e.date),e.cat,e.what,e.amount,e.cur==='USD'?'$':'₸',e.cur==='USD'?e.rate:'',Math.round(kzt(e))]));
+  }
+  return {name,rows};
+}
+$('copyBtn').onclick=()=>{try{exportXLSX();}catch(e){toast('Не удалось выгрузить');}};
+function exportXLSX(){
+  if(typeof XLSX==='undefined'){const ex=buildExport();if(ex){const csv='\ufeff'+ex.rows.map(r=>r.map(c=>{const s=String(c??'');return /[";\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s;}).join(';')).join('\r\n');realDownload('Kassa_'+todayISO()+'.csv',csv,'text/csv;charset=utf-8');toast('Сохранено (CSV)');}return;}
+  const wb=XLSX.utils.book_new();const rate=state.usdRate||0;
+  const sum=[['КАССЫ — СВОДКА · '+todayISO()],[],['Проект','Остаток ₸','Остаток $','Курс','Итого в ₸']];
+  let tk=0,tu=0;
+  state.kassa.projects.forEach(p=>{const bk=p.entries.reduce((s,e)=>s+dKZT(e),0),bu=p.entries.reduce((s,e)=>s+dUSD(e),0);tk+=bk;tu+=bu;sum.push([p.name,Math.round(bk),Math.round(bu),rate,Math.round(bk+bu*rate)]);});
+  sum.push(['ИТОГО',Math.round(tk),Math.round(tu),'',Math.round(tk+tu*rate)]);
+  XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(sum),'Сводка');
+  const used={};
+  state.kassa.projects.forEach(p=>{
+    const rows=[['Дата','Операция','Детали','Сумма ₸','Сумма $','Курс','Комментарий']];
+    [...p.entries].sort((a,b)=>(a.date||'').localeCompare(b.date||'')).forEach(e=>{const op=e.type==='fx'?('Обмен $ ('+(e.dir==='buy'?'покупка':'продажа')+')'):(e.type==='in'?'Приход':'Расход');const rt=e.type==='fx'?e.rate:(e.cur==='USD'?(e.rate||''):(e.refRate||''));rows.push([fmtDate(e.date),op,e.type==='fx'?'':(e.party||''),Math.round(dKZT(e)),Math.round(dUSD(e)),rt,e.comment||'']);});
+    const bk=p.entries.reduce((s,e)=>s+dKZT(e),0),bu=p.entries.reduce((s,e)=>s+dUSD(e),0);
+    rows.push([]);rows.push(['ОСТАТОК','','',Math.round(bk),Math.round(bu),'','']);
+    let nm=(p.name||'Касса').replace(/[\\/?*\[\]:]/g,'-').slice(0,28)||'Касса';let b=nm,i=2;while(used[nm]){nm=(b.slice(0,25))+'('+i+')';i++;}used[nm]=1;
+    XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(rows),nm);
+  });
+  if(state.trips&&state.trips.list.length){
+    const tr=[['КОМАНДИРОВКИ · '+todayISO()]];
+    state.trips.list.forEach(t=>{tr.push([]);tr.push([t.name+(t.dates?(' · '+t.dates):'')]);tr.push(['Дата','Категория','За что','Сумма','Валюта','Курс','Сумма ₸']);let tot=0;[...t.expenses].sort((a,b)=>(a.date||'').localeCompare(b.date||'')).forEach(e=>{const k=kzt(e);tot+=k;tr.push([fmtDate(e.date),e.cat,e.what,e.amount,e.cur==='USD'?'$':'₸',e.cur==='USD'?e.rate:'',Math.round(k)]);});tr.push(['ИТОГО','','','','','',Math.round(tot)]);});
+    XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(tr),'Командировки');
+  }
+  XLSX.writeFile(wb,'Kassa_'+todayISO()+'.xlsx');toast('Excel-файл сохранён');
+}
+function fb(text,cb){const ta=document.createElement('textarea');ta.value=text;ta.style.cssText='position:fixed;opacity:0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');cb&&cb();}catch(e){prompt('Скопируйте вручную:',text);}document.body.removeChild(ta);}
+let toastT;function toast(msg){let t=$('toast');if(!t){t=document.createElement('div');t.id='toast';t.style.cssText='position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:11px 18px;border-radius:10px;font-weight:600;font-size:13.5px;box-shadow:var(--shadow);z-index:50;opacity:0;transition:.2s';document.body.appendChild(t);}t.textContent=msg;t.style.opacity='1';clearTimeout(toastT);toastT=setTimeout(()=>t.style.opacity='0',2200);}
+
+$('themeBtn').onclick=()=>{const cur=document.documentElement.getAttribute('data-theme');const next=cur==='dark'?'light':cur==='light'?'dark':(matchMedia('(prefers-color-scheme: dark)').matches?'light':'dark');document.documentElement.setAttribute('data-theme',next);$('themeBtn').textContent=next==='dark'?'☀':'☾';};
+
+/* modal (prompt/confirm заменены — в песочнице они заблокированы) */
+let modalResolve=null;
+function openModal(o){return new Promise(res=>{modalResolve=res;$('modalTitle').textContent=o.title||'';const inp=$('modalInput');inp.hidden=!o.input;inp.value=o.value||'';const msg=$('modalMsg');msg.hidden=!o.message;msg.textContent=o.message||'';$('modalOk').textContent=o.input?'Сохранить':'Да';$('modalOk').className=o.danger?'btn':'btn';$('modal').hidden=false;if(o.input)setTimeout(()=>{inp.focus();inp.select();},30);else setTimeout(()=>$('modalOk').focus(),30);});}
+function closeModal(v){$('modal').hidden=true;const r=modalResolve;modalResolve=null;if(r)r(v);}
+function promptModal(title,def){return openModal({title,input:true,value:def||''});}
+function confirmModal(msg){return openModal({title:'Подтверждение',message:msg,input:false,danger:true});}
+$('modalCancel').onclick=()=>closeModal(null);
+$('modalOk').onclick=()=>{const inp=$('modalInput');closeModal(inp.hidden?true:inp.value);};
+$('modalInput').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();$('modalOk').click();}else if(e.key==='Escape')closeModal(null);});
+$('modal').addEventListener('click',e=>{if(e.target===$('modal'))closeModal(null);});
+
+/* init */
+$('fDate').value=todayISO();$('eDate').value=todayISO();$('xDate').value=todayISO();setFxDir('buy');
+$('usdRate').value=state.usdRate||'';
+$('usdRate').onchange=()=>{const r=parseFloat($('usdRate').value);if(r>0){state.usdRate=r;state.usdRateManual=true;save();updateRateHint();}};
+setType('in');setView(state.view||'kassa');
+/* backup / restore */
+$('backupBtn').onclick=backupJSON;
+$('restoreBtn').onclick=()=>$('restoreFile').click();
+$('restoreFile').onchange=async(ev)=>{const f=ev.target.files&&ev.target.files[0];if(!f)return;try{const txt=await f.text();const obj=JSON.parse(txt);if(!obj||!obj.kassa||!Array.isArray(obj.kassa.projects)){toast('Файл не похож на копию кассы');}else if(await confirmModal('Заменить текущие данные данными из копии? Нынешние записи будут перезаписаны.')){state=obj;if(state.usdRate==null)state.usdRate=495;save();const el=$('usdRate');if(el)el.value=state.usdRate||'';setView(state.view||'kassa');toast('Данные восстановлены из копии');}}catch(e){toast('Не удалось прочитать файл копии');}ev.target.value='';};
+$('pwBtn').onclick=()=>{if(window._auth){window._auth.signOut();toast('Вы вышли');}else{toast('Локальный режим — вход не требуется');}};
+
+/* ===== Firebase: вход + синхронизация ===== */
+var _fbReady=false,_fbDoc=null,_pushT2=null;
+function fbConfigured(){return FIREBASE_CONFIG&&typeof FIREBASE_CONFIG.apiKey==='string'&&FIREBASE_CONFIG.apiKey.indexOf('ВСТАВ')<0&&FIREBASE_CONFIG.apiKey.length>10;}
+function isBusy2(){return (!$('modal').hidden)||kInlineId||eInlineId||editingId||eEditingId;}
+function fbAdopt(r){state=r;delete state._seed;if(state.usdRate==null)state.usdRate=495;saveLocal();const el=$('usdRate');if(el&&!state.usdRateManual)el.value=state.usdRate||'';$('tabKassa').className=state.view==='kassa'?'on':'';$('tabTrips').className=state.view==='trips'?'on':'';$('kassaView').hidden=state.view!=='kassa';$('tripsView').hidden=state.view!=='trips';renderAll();updateRateHint();}
+function pushNow(){if(_fbDoc){setSync('saving');delete state._seed;const out=JSON.parse(JSON.stringify(state));delete out._seed;_fbDoc.set(out).then(()=>setSync('saved')).catch(()=>setSync('err'));}}
+function fbPush(){if(!_fbReady||!_fbDoc||state._seed){setSync("local");return;}clearTimeout(_pushT2);const out=JSON.parse(JSON.stringify(state));delete out._seed;const snap=JSON.stringify(out);_pushT2=setTimeout(()=>{_fbDoc.set(JSON.parse(snap)).then(()=>setSync('saved')).catch(()=>setSync('err'));},700);}
+function startSync(db,uid){
+  _fbDoc=db.collection('kassa').doc(uid);setSync('saving');
+  _fbDoc.get().then(snap=>{
+    if(snap.exists){const r=snap.data();if(state._seed||(r._rev||0)>=(state._rev||0)){fbAdopt(r);}else{pushNow();}}
+    else{delete state._seed;pushNow();}
+    _fbReady=true;setSync('saved');
+    _fbDoc.onSnapshot(s=>{if(!s.exists)return;const r=s.data();if((r._rev||0)>(state._rev||0)&&!isBusy2())fbAdopt(r);},e=>setSync('err'));
+  }).catch(e=>{setSync('err');});
+}
+function doLogin(){
+  const email=($('lockEmail').value||'').trim(),pw=$('lockInput').value||'';
+  if(!email||!pw){$('lockMsg').textContent='Введите почту и пароль';return;}
+  $('lockMsg').textContent='Вход…';
+  firebase.auth().signInWithEmailAndPassword(email,pw).catch(err=>{
+    const c=(err&&err.code)||'';
+    let m='Не удалось войти. Проверьте почту и пароль.';
+    if(c.indexOf('too-many')>=0)m='Слишком много попыток, подождите немного.';
+    if(c.indexOf('network')>=0)m='Нет интернета.';
+    $('lockMsg').textContent=m;
+  });
+}
+function initFirebase(){
+  if(!fbConfigured()){$('lockScreen').style.display='none';setSync('local');return;}
+  try{firebase.initializeApp(FIREBASE_CONFIG);}catch(e){}
+  window._auth=firebase.auth();const db=firebase.firestore();
+  try{firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);}catch(e){}
+  $('lockBtn').onclick=doLogin;
+  $('lockInput').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+  $('lockEmail').addEventListener('keydown',e=>{if(e.key==='Enter')$('lockInput').focus();});
+  window._auth.onAuthStateChanged(u=>{
+    if(u){$('lockScreen').style.display='none';startSync(db,u.uid);}
+    else{$('lockScreen').style.display='flex';setSync('local');setTimeout(()=>{try{$('lockEmail').focus();}catch(e){}},60);}
+  });
+}
+
+/* ===== Живой курс из интернета ===== */
+async function fetchRate(){
+  const urls=['https://open.er-api.com/v6/latest/USD','https://api.frankfurter.app/latest?from=USD&to=KZT'];
+  for(const u of urls){
+    try{const res=await fetch(u);if(!res.ok)continue;const j=await res.json();let r=(j&&j.rates&&j.rates.KZT)||null;if(r&&r>0){applyAutoRate(Math.round(r*100)/100);return true;}}catch(e){}
+  }
+  return false;
+}
+function applyAutoRate(r){
+  state.usdRateAuto=r;state.usdRateAutoDate=todayISO();
+  if(!state.usdRateManual){state.usdRate=r;const el=$('usdRate');if(el)el.value=r;renderAll();save();}
+  updateRateHint();
+}
+function updateRateHint(){
+  const h=$('rateHint');if(!h)return;
+  if(state.usdRateManual){h.innerHTML='вручную · <a href="#" id="autoLink" style="color:var(--accent-ink)">вернуть авто</a>';const a=$('autoLink');if(a)a.onclick=(e)=>{e.preventDefault();state.usdRateManual=false;if(state.usdRateAuto){state.usdRate=state.usdRateAuto;$('usdRate').value=state.usdRate;}save();renderAll();updateRateHint();};}
+  else{h.textContent=state.usdRateAutoDate?('авто · '+fmtDate(state.usdRateAutoDate)):'авто из интернета';}
+}
+$('rateRefresh').onclick=()=>{h_toast();fetchRate();};
+function h_toast(){toast('Обновляю курс…');}
+
+/* ===== запуск ===== */
+initFirebase();
+updateRateHint();
+fetchRate();
+if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').catch(()=>{});});}
+</script>
