@@ -275,10 +275,10 @@ tr.editing .ie{padding:7px 9px;font-size:13.5px}
     </div>
 
     <div class="card" id="peopleCard" style="margin-top:16px" hidden>
-      <div style="padding:14px 18px 4px"><h3 style="margin:0;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700">Взносы и расчёты по людям</h3></div>
+      <div style="padding:14px 18px 4px"><h3 style="margin:0;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700">Взносы по людям</h3></div>
       <div class="tablewrap">
         <table class="tbl">
-          <thead><tr><th>Кто</th><th class="r">Внёс (приход)</th><th class="r">Забрал / расход</th><th class="r">Итого нетто</th></tr></thead>
+          <thead><tr><th>Кто</th><th class="r">Сумма взносов</th></tr></thead>
           <tbody class="rows" id="peopleRows"></tbody>
         </table>
       </div>
@@ -775,13 +775,13 @@ function renderPeople(){
   const p=kActive();const rows=$('peopleRows');const card=$('peopleCard');if(!rows||!card)return;
   if(!p){card.hidden=true;return;}
   const map={};
-  p.entries.forEach(e=>{if(e.type==='fx')return;const who=(e.party||'').trim();if(!who)return;map[who]=map[who]||{inK:0,inU:0,outK:0,outU:0};const a=e.amount||0;if(e.type==='in'){if(e.cur==='USD')map[who].inU+=a;else map[who].inK+=a;}else{if(e.cur==='USD')map[who].outU+=a;else map[who].outK+=a;}});
+  p.entries.forEach(e=>{if(e.type!=='in')return;const who=(e.party||'').trim();if(!who)return;map[who]=map[who]||{k:0,u:0};const a=e.amount||0;if(e.cur==='USD')map[who].u+=a;else map[who].k+=a;});
   const names=Object.keys(map);
   if(!names.length){card.hidden=true;return;}
   const rate=state.usdRate||0;
-  names.sort((a,b)=>((map[b].inK+map[b].inU*rate))-((map[a].inK+map[a].inU*rate)));
+  names.sort((a,b)=>((map[b].k+map[b].u*rate))-((map[a].k+map[a].u*rate)));
   card.hidden=false;
-  rows.innerHTML=names.map(n=>{const m=map[n];const nk=m.inK-m.outK,nu=m.inU-m.outU;return '<tr><td data-label="Кто"><b>'+esc(n)+'</b></td><td class="r num" data-label="Внёс">'+money2(m.inK,m.inU)+'</td><td class="r num" data-label="Расход">'+money2(m.outK,m.outU)+'</td><td class="r num" data-label="Итого нетто" style="font-weight:700">'+money2(nk,nu)+'</td></tr>';}).join('');
+  rows.innerHTML=names.map(n=>{const m=map[n];return '<tr><td data-label="Кто"><b>'+esc(n)+'</b></td><td class="r num" data-label="Сумма взносов" style="font-weight:700">'+money2(m.k,m.u)+'</td></tr>';}).join('');
 }
 function doLogin(){
   const email=($('lockEmail').value||'').trim(),pw=$('lockInput').value||'';
