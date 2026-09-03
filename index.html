@@ -189,10 +189,7 @@ tr.editing .ie{padding:7px 9px;font-size:13.5px}
         <div id="rateHint" class="refrate" style="text-align:right;font-size:11px;padding-right:4px"></div>
       </div>
       <button class="btn ghost" id="copyBtn">Выгрузить в Excel</button>
-      <button class="btn ghost" id="backupBtn" title="Сохранить резервную копию всех данных в файл">Копия ⭳</button>
-      <button class="btn ghost" id="restoreBtn" title="Восстановить данные из резервной копии">Восстановить</button>
       <button class="btn ghost" id="pwBtn" title="Выйти из аккаунта">Выйти</button>
-      <input type="file" id="restoreFile" accept="application/json,.json" hidden>
       <button class="btn ghost" id="themeBtn" title="Сменить тему">☾</button>
     </div>
   </div>
@@ -709,10 +706,6 @@ $('fDate').value=todayISO();$('eDate').value=todayISO();$('xDate').value=todayIS
 $('usdRate').value=state.usdRate||'';
 $('usdRate').onchange=()=>{const r=parseFloat($('usdRate').value);if(r>0){state.usdRate=r;state.usdRateManual=true;save();updateRateHint();}};
 setType('in');setView(state.view||'kassa');
-/* backup / restore */
-$('backupBtn').onclick=backupJSON;
-$('restoreBtn').onclick=()=>$('restoreFile').click();
-$('restoreFile').onchange=async(ev)=>{const f=ev.target.files&&ev.target.files[0];if(!f)return;try{const txt=await f.text();const obj=JSON.parse(txt);if(!obj||!obj.kassa||!Array.isArray(obj.kassa.projects)){toast('Файл не похож на копию кассы');}else if(await confirmModal('Заменить текущие данные данными из копии? Нынешние записи будут перезаписаны.')){state=obj;if(state.usdRate==null)state.usdRate=495;save();const el=$('usdRate');if(el)el.value=state.usdRate||'';setView(state.view||'kassa');toast('Данные восстановлены из копии');}}catch(e){toast('Не удалось прочитать файл копии');}ev.target.value='';};
 $('pwBtn').onclick=()=>{if(window._auth){window._auth.signOut();toast('Вы вышли');}else{toast('Локальный режим — вход не требуется');}};
 
 /* ===== Firebase: вход + синхронизация ===== */
