@@ -273,6 +273,16 @@ tr.editing .ie{padding:7px 9px;font-size:13.5px}
       </div>
       <div class="foot"><div class="mut" id="kCount"></div><div class="tot">Остаток: <span id="kFootBal" class="num"></span></div></div>
     </div>
+
+    <div class="card" id="peopleCard" style="margin-top:16px" hidden>
+      <div style="padding:14px 18px 4px"><h3 style="margin:0;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700">Взносы и расчёты по людям</h3></div>
+      <div class="tablewrap">
+        <table class="tbl">
+          <thead><tr><th>Кто</th><th class="r">Внёс (приход)</th><th class="r">Забрал / расход</th><th class="r">Итого нетто</th></tr></thead>
+          <tbody class="rows" id="peopleRows"></tbody>
+        </table>
+      </div>
+    </div>
   </div>
 
   <!-- ===== TRIPS VIEW ===== -->
@@ -509,6 +519,7 @@ function renderKassa(){
   rows.querySelectorAll('.cancelibtn').forEach(b=>b.onclick=()=>{kInlineId=null;renderKassa();});
   $('kCount').textContent=entries.length?entries.length+' операций в кассе':'';
   $('kFootBal').textContent=`${money(balKZT)} · ${money(balUSD,'USD')}`;
+  renderPeople();
 }
 function kEditRow(e){
   if(e.type==='fx') return `<tr class="editing">
@@ -547,7 +558,7 @@ function kSaveInline(id,tr){
     if(cur==='USD'&&rate)setUsd(rate);
     Object.assign(e,{type:g('type').value,date:g('date').value||todayISO(),party:g('party').value.trim(),amount,cur,rate,refRate:refFor(cur,rate,e.refRate),comment:g('comment').value.trim()});
   }
-  kInlineId=null;save();renderKassa();
+  kInlineId=null;save();renderKassa();stampKassaRate(e);
 }
 function setType(t){formType=t;$('segIn').className=t==='in'?'on-in':'';$('segOut').className=t==='out'?'on-out':'';$('fPartyLab').textContent=t==='in'?'От кого':'Куда';$('fParty').placeholder=t==='in'?'Напр., Ильшат':'Напр., Поставщик';if(!editingId)$('kFormTitle').textContent=t==='in'?'Новое поступление':'Новое выбытие';}
 $('segIn').onclick=()=>setType('in');$('segOut').onclick=()=>setType('out');
@@ -556,7 +567,7 @@ $('fCur').onchange=()=>{$('rateWrap').hidden=$('fCur').value!=='USD';kHint();};
 function kHint(){const usd=$('fCur').value==='USD',a=parseFloat($('fAmount').value)||0,r=parseFloat($('fRate').value)||0;$('convHint').textContent=usd&&a&&r?`= ${money(a*r)} по курсу ${KZT.format(r)} ₸/$`:'';}
 function kCollect(){const amount=parseFloat($('fAmount').value);if(!amount||amount<=0){toast('Введите сумму больше нуля');return null;}const cur=$('fCur').value;const rate=cur==='USD'?(parseFloat($('fRate').value)||null):null;if(cur==='USD'&&rate)setUsd(rate);return{type:formType,date:$('fDate').value||todayISO(),party:$('fParty').value.trim(),amount,cur,rate,refRate:refFor(cur,rate),comment:$('fComment').value.trim()};}
 function kClear(){$('fParty').value='';$('fAmount').value='';$('fComment').value='';$('fRate').value='';kHint();}
-$('addBtn').onclick=()=>{const d=kCollect();if(!d)return;if(editingId){const e=kActive().entries.find(x=>x.id===editingId);if(e)Object.assign(e,d);kExitEdit();}else kActive().entries.push(Object.assign({id:uid()},d));save();kClear();renderKassa();};
+$('addBtn').onclick=()=>{const d=kCollect();if(!d)return;let _e;if(editingId){_e=kActive().entries.find(x=>x.id===editingId);if(_e)Object.assign(_e,d);kExitEdit();}else{_e=Object.assign({id:uid()},d);kActive().entries.push(_e);}save();kClear();renderKassa();stampKassaRate(_e);};
 function kStartEdit(id){const e=kActive().entries.find(x=>x.id===id);if(!e)return;editingId=id;setType(e.type);$('fDate').value=e.date;$('fParty').value=e.party||'';$('fAmount').value=e.amount;$('fCur').value=e.cur;$('rateWrap').hidden=e.cur!=='USD';$('fRate').value=e.cur==='USD'?(e.rate||''):'';$('fComment').value=e.comment||'';kHint();$('addBtn').textContent='Сохранить';$('cancelBtn').hidden=false;$('kFormTitle').textContent='Редактирование операции';window.scrollTo({top:0,behavior:'smooth'});}
 function kExitEdit(){editingId=null;$('addBtn').textContent='Добавить';$('cancelBtn').hidden=true;$('kFormTitle').textContent=formType==='in'?'Новое поступление':'Новое выбытие';}
 $('cancelBtn').onclick=()=>{kExitEdit();kClear();};
@@ -592,7 +603,7 @@ function eSaveInline(id,tr){
   if(cur==='USD'&&(!rate||rate<=0)){toast('Укажите курс ₸/$');return;}
   if(cur==='USD')setUsd(rate);
   const e=tActive().expenses.find(x=>x.id===id);if(e)Object.assign(e,{date:g('date').value||todayISO(),cat:g('cat').value,what:g('what').value.trim(),amount,cur,rate,refRate:refFor(cur,rate,e.refRate)});
-  eInlineId=null;save();renderTrips();
+  eInlineId=null;save();renderTrips();stampTripRate(e);
 }
 function renderTrips(){
   const pc=$('tTrips');pc.innerHTML='';
@@ -653,7 +664,7 @@ $('eCur').onchange=()=>{$('eRateWrap').hidden=$('eCur').value!=='USD';eHint();};
 function eHint(){const usd=$('eCur').value==='USD',a=parseFloat($('eAmount').value)||0,r=parseFloat($('eRate').value)||0;$('eConvHint').textContent=usd&&a&&r?`= ${money(a*r)} по курсу ${KZT.format(r)} ₸/$`:'';}
 function eCollect(){const amount=parseFloat($('eAmount').value);if(!amount||amount<=0){toast('Введите сумму больше нуля');return null;}const cur=$('eCur').value;const rate=cur==='USD'?(parseFloat($('eRate').value)||0):null;if(cur==='USD'&&(!rate||rate<=0)){toast('Укажите курс ₸/$');return null;}if(cur==='USD')setUsd(rate);return{date:$('eDate').value||todayISO(),cat:$('eCat').value,what:$('eWhat').value.trim(),amount,cur,rate,refRate:refFor(cur,rate)};}
 function eClear(){$('eWhat').value='';$('eAmount').value='';$('eRate').value='';eHint();}
-$('eAddBtn').onclick=()=>{const t=tActive();if(!t){toast('Сначала создайте командировку');return;}const d=eCollect();if(!d)return;if(eEditingId){const e=t.expenses.find(x=>x.id===eEditingId);if(e)Object.assign(e,d);eExitEdit();}else t.expenses.push(Object.assign({id:uid()},d));save();eClear();renderTrips();};
+$('eAddBtn').onclick=()=>{const t=tActive();if(!t){toast('Сначала создайте командировку');return;}const d=eCollect();if(!d)return;let _e;if(eEditingId){_e=t.expenses.find(x=>x.id===eEditingId);if(_e)Object.assign(_e,d);eExitEdit();}else{_e=Object.assign({id:uid()},d);t.expenses.push(_e);}save();eClear();renderTrips();stampTripRate(_e);};
 function eStartEdit(id){const t=tActive();const e=t.expenses.find(x=>x.id===id);if(!e)return;eEditingId=id;$('eDate').value=e.date;$('eCat').value=e.cat||'Прочее';$('eWhat').value=e.what||'';$('eAmount').value=e.amount;$('eCur').value=e.cur;$('eRateWrap').hidden=e.cur!=='USD';$('eRate').value=e.cur==='USD'?(e.rate||''):'';eHint();$('eAddBtn').textContent='Сохранить';$('eCancelBtn').hidden=false;$('tFormTitle').textContent='Редактирование расхода';window.scrollTo({top:0,behavior:'smooth'});}
 function eExitEdit(){eEditingId=null;$('eAddBtn').textContent='Добавить';$('eCancelBtn').hidden=true;$('tFormTitle').textContent='Новый расход';}
 $('eCancelBtn').onclick=()=>{eExitEdit();eClear();};
@@ -735,11 +746,42 @@ function fbPush(){if(!_fbReady||!_fbDoc||state._seed){setSync("local");return;}c
 function startSync(db,uid){
   _fbDoc=db.collection('kassa').doc(uid);setSync('saving');
   _fbDoc.get().then(snap=>{
-    if(snap.exists){const r=snap.data();if(state._seed||(r._rev||0)>=(state._rev||0)){fbAdopt(r);}else{pushNow();}}
+    if(snap.exists){fbAdopt(snap.data());} /* облако всегда главнее при загрузке — старое не затирает */
     else{delete state._seed;pushNow();}
     _fbReady=true;setSync('saved');
     _fbDoc.onSnapshot(s=>{if(!s.exists)return;const r=s.data();if((r._rev||0)>(state._rev||0)&&!isBusy2())fbAdopt(r);},e=>setSync('err'));
   }).catch(e=>{setSync('err');});
+}
+/* ---- курс на дату операции ---- */
+var _rateCache={};
+async function rateOnDate(d){
+  if(!d)return null;
+  if(_rateCache[d]!=null)return _rateCache[d];
+  const urls=['https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@'+d+'/v1/currencies/usd.json','https://'+d+'.currency-api.pages.dev/v1/currencies/usd.json'];
+  for(const u of urls){try{const r=await fetch(u);if(!r.ok)continue;const j=await r.json();const v=j&&j.usd&&j.usd.kzt;if(v&&v>0){const val=Math.round(v*100)/100;_rateCache[d]=val;return val;}}catch(e){}}
+  return null;
+}
+function stampKassaRate(e){
+  if(!e||!e.date||e.type==='fx')return;
+  rateOnDate(e.date).then(r=>{if(!r)return;if(e.cur==='USD'){if(!e.rate)e.rate=r;}else{e.refRate=r;}save();renderKassa();});
+}
+function stampTripRate(e){
+  if(!e||!e.date)return;
+  rateOnDate(e.date).then(r=>{if(!r)return;if(e.cur==='USD'){if(!e.rate)e.rate=r;}else{e.refRate=r;}save();renderTrips();});
+}
+/* ---- сводка по людям ---- */
+function money2(k,u){var a=[];if(k)a.push(money(k));if(u)a.push(money(u,'USD'));return a.length?a.join(' · '):'<span class="mut">–</span>';}
+function renderPeople(){
+  const p=kActive();const rows=$('peopleRows');const card=$('peopleCard');if(!rows||!card)return;
+  if(!p){card.hidden=true;return;}
+  const map={};
+  p.entries.forEach(e=>{if(e.type==='fx')return;const who=(e.party||'').trim();if(!who)return;map[who]=map[who]||{inK:0,inU:0,outK:0,outU:0};const a=e.amount||0;if(e.type==='in'){if(e.cur==='USD')map[who].inU+=a;else map[who].inK+=a;}else{if(e.cur==='USD')map[who].outU+=a;else map[who].outK+=a;}});
+  const names=Object.keys(map);
+  if(!names.length){card.hidden=true;return;}
+  const rate=state.usdRate||0;
+  names.sort((a,b)=>((map[b].inK+map[b].inU*rate))-((map[a].inK+map[a].inU*rate)));
+  card.hidden=false;
+  rows.innerHTML=names.map(n=>{const m=map[n];const nk=m.inK-m.outK,nu=m.inU-m.outU;return '<tr><td data-label="Кто"><b>'+esc(n)+'</b></td><td class="r num" data-label="Внёс">'+money2(m.inK,m.inU)+'</td><td class="r num" data-label="Расход">'+money2(m.outK,m.outU)+'</td><td class="r num" data-label="Итого нетто" style="font-weight:700">'+money2(nk,nu)+'</td></tr>';}).join('');
 }
 function doLogin(){
   const email=($('lockEmail').value||'').trim(),pw=$('lockInput').value||'';
