@@ -223,6 +223,7 @@ tr.editing .ie{padding:7px 9px;font-size:13.5px}
     <div class="chips" id="kProjects"></div>
     <div class="bartools">
       <span class="barname" id="kName"></span>
+      <button class="linkbtn" id="kKind">Тип: Касса</button>
       <button class="linkbtn" id="kRename">Переименовать</button>
       <button class="linkbtn danger" id="kDelete">Удалить проект</button>
     </div>
@@ -484,6 +485,7 @@ function renderKassa(){
 
   const p=kActive();
   $('kName').textContent='Проект: '+p.name;
+  {const _inv=p.kind==='invest';const _kk=$('kKind');if(_kk)_kk.textContent=_inv?'Тип: Инвестиции ⇄':'Тип: Касса ⇄';const _so=$('segOut');if(_so)_so.style.display=_inv?'none':'';if(_inv&&formType==='out')formType='in';setType(formType);}
   const entries=[...p.entries].sort((a,b)=>(a.date||'').localeCompare(b.date||''));
   const balKZT=entries.reduce((s,e)=>s+dKZT(e),0);
   const balUSD=entries.reduce((s,e)=>s+dUSD(e),0);
@@ -563,8 +565,9 @@ function kSaveInline(id,tr){
   }
   kInlineId=null;save();renderKassa();stampKassaRate(e);
 }
-function setType(t){formType=t;$('segIn').className=t==='in'?'on-in':'';$('segOut').className=t==='out'?'on-out':'';var _sr=$('segRet');if(_sr)_sr.className=t==='ret'?'on-ret':'';$('fPartyLab').textContent=t==='in'?'От кого':(t==='ret'?'Кому возврат':'Куда');$('fParty').placeholder=t==='in'?'Напр., Ильшат':(t==='ret'?'Напр., ДА':'Напр., Поставщик');if(!editingId)$('kFormTitle').textContent=t==='in'?'Новое поступление':(t==='ret'?'Возврат взноса':'Новое выбытие');}
+function setType(t){formType=t;$('segIn').className=t==='in'?'on-in':'';$('segOut').className=t==='out'?'on-out':'';var _sr=$('segRet');if(_sr)_sr.className=t==='ret'?'on-ret':'';var _inv=(kActive()&&kActive().kind==='invest');$('segIn').textContent=_inv?'Взнос':'Поступление';$('fPartyLab').textContent=t==='in'?'От кого':(t==='ret'?'Кому возврат':'Куда');$('fParty').placeholder=t==='in'?'Напр., Ильшат':(t==='ret'?'Напр., ДА':'Напр., Поставщик');if(!editingId)$('kFormTitle').textContent=t==='in'?(_inv?'Новый взнос':'Новое поступление'):(t==='ret'?'Возврат взноса':'Новое выбытие');}
 $('segIn').onclick=()=>setType('in');$('segOut').onclick=()=>setType('out');var _srb=$('segRet');if(_srb)_srb.onclick=()=>setType('ret');
+var _kkb=$('kKind');if(_kkb)_kkb.onclick=()=>{const p=kActive();if(!p)return;p.kind=(p.kind==='invest')?'cash':'invest';save();renderKassa();};
 $('fCur').onchange=()=>{$('rateWrap').hidden=$('fCur').value!=='USD';kHint();};
 ['fAmount','fRate'].forEach(id=>$(id).addEventListener('input',kHint));
 function kHint(){const usd=$('fCur').value==='USD',a=parseFloat($('fAmount').value)||0,r=parseFloat($('fRate').value)||0;$('convHint').textContent=usd&&a&&r?`= ${money(a*r)} по курсу ${KZT.format(r)} ₸/$`:'';}
@@ -580,7 +583,7 @@ $('fxBuy').onclick=()=>setFxDir('buy');$('fxSell').onclick=()=>setFxDir('sell');
 function xCalc(){const k=parseFloat($('xKzt').value)||0,r=parseFloat($('xRate').value)||0;if(k>0&&r>0)$('xUsd').value=Math.round((k/r)*100)/100;}
 ['xKzt','xRate'].forEach(id=>$(id).addEventListener('input',xCalc));
 $('xAdd').onclick=()=>{const rate=parseFloat($('xRate').value)||0;if(rate<=0){toast('Укажите курс ₸/$');return;}let k=parseFloat($('xKzt').value)||0,u=parseFloat($('xUsd').value)||0;if(k<=0&&u<=0){toast('Укажите сумму ₸ или $');return;}if(k<=0)k=u*rate;if(u<=0)u=k/rate;setUsd(rate);kActive().entries.push({id:uid(),type:'fx',date:$('xDate').value||todayISO(),dir:fxDir,kzt:k,usd:u,rate,comment:$('xComment').value.trim()});save();$('xKzt').value='';$('xUsd').value='';$('xComment').value='';renderKassa();};
-async function addProject(){const n=await promptModal('Новый проект / касса','');if(!n||!n.trim())return;const id=uid();state.kassa.projects.push({id,name:n.trim(),entries:[]});state.kassa.active=id;save();renderKassa();}
+async function addProject(){const n=await promptModal('Новый проект / касса','');if(!n||!n.trim())return;const inv=(await confirmModal('Сделать её инвестиционной? (только взносы, обмены, возвраты — без выбытия). «Отмена» — обычная касса.'))===true;const id=uid();state.kassa.projects.push({id,name:n.trim(),entries:[],kind:inv?'invest':'cash'});state.kassa.active=id;save();renderKassa();}
 $('kRename').onclick=async()=>{const p=kActive();const n=await promptModal('Переименовать проект',p.name);if(n&&n.trim()){p.name=n.trim();save();renderKassa();}};
 $('kDelete').onclick=async()=>{const p=kActive();if(state.kassa.projects.length<=1){toast('Нельзя удалить единственный проект. Создайте другой, затем удалите этот.');return;}if(await confirmModal('Удалить проект «'+p.name+'» со всеми операциями?')){tomb(p.id);state.kassa.projects=state.kassa.projects.filter(x=>x.id!==p.id);state.kassa.active=state.kassa.projects[0].id;save();renderKassa();}};
 
@@ -755,7 +758,7 @@ function mergeStates(remote,local){
     out.kassa=out.kassa||{projects:[],active:null};out.kassa.projects=(out.kassa.projects||[]).filter(p=>!delSet[p.id]);
     out.kassa.projects.forEach(p=>{p.entries=(p.entries||[]).filter(e=>!delSet[e.id]);});
     const byId={};out.kassa.projects.forEach(p=>byId[p.id]=p);
-    ((remote.kassa&&remote.kassa.projects)||[]).forEach(rproj=>{if(delSet[rproj.id])return;let lp=byId[rproj.id];if(!lp){const cp=JSON.parse(JSON.stringify(rproj));cp.entries=(cp.entries||[]).filter(e=>!delSet[e.id]);out.kassa.projects.push(cp);byId[cp.id]=cp;}else{lp.entries=lp.entries||[];const e={};lp.entries.forEach(x=>{e[x.id]=1;});(rproj.entries||[]).forEach(re=>{if(!delSet[re.id]&&!e[re.id])lp.entries.push(re);});if(!lp.name&&rproj.name)lp.name=rproj.name;}});
+    ((remote.kassa&&remote.kassa.projects)||[]).forEach(rproj=>{if(delSet[rproj.id])return;let lp=byId[rproj.id];if(!lp){const cp=JSON.parse(JSON.stringify(rproj));cp.entries=(cp.entries||[]).filter(e=>!delSet[e.id]);out.kassa.projects.push(cp);byId[cp.id]=cp;}else{lp.entries=lp.entries||[];const e={};lp.entries.forEach(x=>{e[x.id]=1;});(rproj.entries||[]).forEach(re=>{if(!delSet[re.id]&&!e[re.id])lp.entries.push(re);});if(!lp.name&&rproj.name)lp.name=rproj.name;if(!lp.kind&&rproj.kind)lp.kind=rproj.kind;}});
     out.trips=out.trips||{list:[],active:null};out.trips.list=(out.trips.list||[]).filter(t=>!delSet[t.id]);
     out.trips.list.forEach(t=>{t.expenses=(t.expenses||[]).filter(x=>!delSet[x.id]);});
     const tById={};out.trips.list.forEach(t=>tById[t.id]=t);
