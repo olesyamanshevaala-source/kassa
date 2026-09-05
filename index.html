@@ -87,6 +87,7 @@ h1{font-size:22px;font-weight:800;letter-spacing:-.01em;margin:0}
 .seg button{border:none;background:none;font:inherit;font-weight:700;font-size:13.5px;padding:7px 16px;border-radius:8px;cursor:pointer;color:var(--muted)}
 .seg button.on-in{background:var(--in);color:#fff}
 .seg button.on-out{background:var(--out);color:#fff}
+.seg button.on-ret{background:var(--accent);color:#fff}
 .grid{display:grid;gap:10px;align-items:end;margin-top:12px}
 .grid.kassa{grid-template-columns:1.1fr 1.5fr .9fr auto .9fr 1.5fr auto}
 .grid.trip{grid-template-columns:1.1fr 1.1fr 1.5fr .9fr auto .9fr auto}
@@ -115,6 +116,7 @@ td.r,th.r{text-align:right}
 .pill.in{background:var(--in-soft);color:var(--in)}
 .pill.out{background:var(--out-soft);color:var(--out)}
 .pill.cat{background:var(--accent-soft);color:var(--accent-ink)}
+.pill.ret{background:var(--accent-soft);color:var(--accent-ink)}
 .amt-in{color:var(--in);font-weight:700}
 .amt-out{color:var(--out);font-weight:700}
 .mut{color:var(--muted)}
@@ -232,6 +234,7 @@ tr.editing .ie{padding:7px 9px;font-size:13.5px}
       <div class="seg" role="tablist">
         <button id="segIn" class="on-in" type="button">Поступление</button>
         <button id="segOut" type="button">Выбытие</button>
+        <button id="segRet" type="button">Возврат</button>
       </div>
       <div class="grid kassa">
         <div class="field"><label>Дата</label><input type="date" id="fDate"></div>
@@ -500,7 +503,7 @@ function renderKassa(){
     const dk=dKZT(e),du=dUSD(e);
     let opPill,details;
     if(e.type==='fx'){opPill='<span class="pill cat">Обмен $</span>';details=e.dir==='buy'?'Покупка $ за ₸':'Продажа $ за ₸';}
-    else{const inn=e.type==='in';opPill=`<span class="pill ${inn?'in':'out'}">${inn?'Приход':'Расход'}</span>`;details=esc(e.party||'')||'<span class=mut>—</span>';}
+    else{const lbl=e.type==='in'?'Приход':(e.type==='ret'?'Возврат':'Расход');const cls=e.type==='in'?'in':(e.type==='ret'?'ret':'out');opPill='<span class="pill '+cls+'">'+lbl+'</span>';details=esc(e.party||'')||'<span class=mut>—</span>';}
     const mv=(v,cur)=> v===0?'<span class="mut">—</span>':`<span class="${v>0?'amt-in':'amt-out'}">${v>0?'+':'−'}${money(Math.abs(v),cur)}</span>`;
     const rateCell=e.type==='fx'?KZT.format(e.rate||0):(e.cur==='USD'?(e.rate?KZT.format(e.rate):'—'):(e.refRate?`<span class="refrate" title="курс $ на эту дату, справочно">≈ ${KZT.format(e.refRate)}</span>`:'—'));
     return `<tr>
@@ -534,7 +537,7 @@ function kEditRow(e){
   </tr>`;
   return `<tr class="editing">
     <td data-label="Дата"><input type="date" class="ie" data-f="date" value="${e.date||''}"></td>
-    <td data-label="Операция"><select class="ie" data-f="type"><option value="in"${e.type==='in'?' selected':''}>Приход</option><option value="out"${e.type==='out'?' selected':''}>Расход</option></select></td>
+    <td data-label="Операция"><select class="ie" data-f="type"><option value="in"${e.type==='in'?' selected':''}>Приход</option><option value="out"${e.type==='out'?' selected':''}>Расход</option><option value="ret"${e.type==='ret'?' selected':''}>Возврат</option></select></td>
     <td data-label="Детали"><input type="text" class="ie" data-f="party" value="${esc(e.party||'')}"></td>
     <td data-label="Сумма"><div style="display:flex;gap:6px"><input type="number" step="any" min="0" class="ie" data-f="amount" value="${e.amount}"><select class="ie" data-f="cur" style="max-width:60px"><option value="KZT"${e.cur==='KZT'?' selected':''}>₸</option><option value="USD"${e.cur==='USD'?' selected':''}>$</option></select></div></td>
     <td class="mut" data-label="—">—</td>
@@ -560,8 +563,8 @@ function kSaveInline(id,tr){
   }
   kInlineId=null;save();renderKassa();stampKassaRate(e);
 }
-function setType(t){formType=t;$('segIn').className=t==='in'?'on-in':'';$('segOut').className=t==='out'?'on-out':'';$('fPartyLab').textContent=t==='in'?'От кого':'Куда';$('fParty').placeholder=t==='in'?'Напр., Ильшат':'Напр., Поставщик';if(!editingId)$('kFormTitle').textContent=t==='in'?'Новое поступление':'Новое выбытие';}
-$('segIn').onclick=()=>setType('in');$('segOut').onclick=()=>setType('out');
+function setType(t){formType=t;$('segIn').className=t==='in'?'on-in':'';$('segOut').className=t==='out'?'on-out':'';var _sr=$('segRet');if(_sr)_sr.className=t==='ret'?'on-ret':'';$('fPartyLab').textContent=t==='in'?'От кого':(t==='ret'?'Кому возврат':'Куда');$('fParty').placeholder=t==='in'?'Напр., Ильшат':(t==='ret'?'Напр., ДА':'Напр., Поставщик');if(!editingId)$('kFormTitle').textContent=t==='in'?'Новое поступление':(t==='ret'?'Возврат взноса':'Новое выбытие');}
+$('segIn').onclick=()=>setType('in');$('segOut').onclick=()=>setType('out');var _srb=$('segRet');if(_srb)_srb.onclick=()=>setType('ret');
 $('fCur').onchange=()=>{$('rateWrap').hidden=$('fCur').value!=='USD';kHint();};
 ['fAmount','fRate'].forEach(id=>$(id).addEventListener('input',kHint));
 function kHint(){const usd=$('fCur').value==='USD',a=parseFloat($('fAmount').value)||0,r=parseFloat($('fRate').value)||0;$('convHint').textContent=usd&&a&&r?`= ${money(a*r)} по курсу ${KZT.format(r)} ₸/$`:'';}
@@ -678,7 +681,7 @@ function buildExport(){
   if(state.view==='kassa'){const p=kActive();name='Касса — '+p.name;
     rows=[['Дата','Операция','Детали','Сумма ₸','Сумма $','Курс','Комментарий']];
     [...p.entries].sort((a,b)=>(a.date||'').localeCompare(b.date||'')).forEach(e=>{
-      const op=e.type==='fx'?('Обмен $ ('+(e.dir==='buy'?'покупка':'продажа')+')'):(e.type==='in'?'Приход':'Расход');
+      const op=e.type==='fx'?('Обмен $ ('+(e.dir==='buy'?'покупка':'продажа')+')'):(e.type==='in'?'Приход':(e.type==='ret'?'Возврат':'Расход'));
       const rate=e.type==='fx'?e.rate:(e.cur==='USD'?(e.rate||''):(e.refRate||''));
       rows.push([fmtDate(e.date),op,e.type==='fx'?'':(e.party||''),Math.round(dKZT(e))||'',Math.round(dUSD(e))||'',rate,e.comment||'']);
     });
@@ -700,7 +703,7 @@ function exportXLSX(){
   const used={};
   state.kassa.projects.forEach(p=>{
     const rows=[['Дата','Операция','Детали','Сумма ₸','Сумма $','Курс','Комментарий']];
-    [...p.entries].sort((a,b)=>(a.date||'').localeCompare(b.date||'')).forEach(e=>{const op=e.type==='fx'?('Обмен $ ('+(e.dir==='buy'?'покупка':'продажа')+')'):(e.type==='in'?'Приход':'Расход');const rt=e.type==='fx'?e.rate:(e.cur==='USD'?(e.rate||''):(e.refRate||''));rows.push([fmtDate(e.date),op,e.type==='fx'?'':(e.party||''),Math.round(dKZT(e)),Math.round(dUSD(e)),rt,e.comment||'']);});
+    [...p.entries].sort((a,b)=>(a.date||'').localeCompare(b.date||'')).forEach(e=>{const op=e.type==='fx'?('Обмен $ ('+(e.dir==='buy'?'покупка':'продажа')+')'):(e.type==='in'?'Приход':(e.type==='ret'?'Возврат':'Расход'));const rt=e.type==='fx'?e.rate:(e.cur==='USD'?(e.rate||''):(e.refRate||''));rows.push([fmtDate(e.date),op,e.type==='fx'?'':(e.party||''),Math.round(dKZT(e)),Math.round(dUSD(e)),rt,e.comment||'']);});
     const bk=p.entries.reduce((s,e)=>s+dKZT(e),0),bu=p.entries.reduce((s,e)=>s+dUSD(e),0);
     rows.push([]);rows.push(['ОСТАТОК','','',Math.round(bk),Math.round(bu),'','']);
     let nm=(p.name||'Касса').replace(/[\\/?*\[\]:]/g,'-').slice(0,28)||'Касса';let b=nm,i=2;while(used[nm]){nm=(b.slice(0,25))+'('+i+')';i++;}used[nm]=1;
@@ -812,13 +815,13 @@ function renderPeople(){
   if(!p){card.hidden=true;return;}
   const cur=state.usdRate||0;
   const map={};
-  p.entries.forEach(e=>{if(e.type!=='in')return;const who=(e.party||'').trim();if(!who)return;map[who]=map[who]||{kzt:0,usd:0};const a=e.amount||0;if(e.cur==='USD'){const rt=e.rate||e.refRate||cur;map[who].kzt+=a*rt;map[who].usd+=a;}else{map[who].kzt+=a;}});
+  p.entries.forEach(e=>{if(e.type!=='in'&&e.type!=='ret')return;const who=(e.party||'').trim();if(!who)return;map[who]=map[who]||{kzt:0,usd:0};const a=e.amount||0;const sg=e.type==='ret'?-1:1;if(e.cur==='USD'){const rt=e.rate||e.refRate||cur;map[who].kzt+=sg*a*rt;map[who].usd+=sg*a;}else{map[who].kzt+=sg*a;}});
   const names=Object.keys(map);
   if(!names.length){card.hidden=true;return;}
   names.sort((a,b)=>map[b].kzt-map[a].kzt);
   const total=names.reduce((s,n)=>s+map[n].kzt,0);
   card.hidden=false;
-  let html=names.map(n=>{const m=map[n];const sub=m.usd?'<span class="usd">в т.ч. '+money(m.usd,'USD')+' по курсу дня</span>':'';return '<tr><td data-label="Кто"><b>'+esc(n)+'</b></td><td class="r num" data-label="Сумма взносов, ₸" style="font-weight:700">'+money(m.kzt)+sub+'</td></tr>';}).join('');
+  let html=names.map(n=>{const m=map[n];const sub=m.usd>0?'<span class="usd">в т.ч. '+money(m.usd,'USD')+' по курсу дня</span>':'';return '<tr><td data-label="Кто"><b>'+esc(n)+'</b></td><td class="r num" data-label="Сумма взносов, ₸" style="font-weight:700">'+money(m.kzt)+sub+'</td></tr>';}).join('');
   html+='<tr style="background:var(--card)"><td data-label="Кто" style="font-weight:800">ИТОГО взносов</td><td class="r num" data-label="Сумма взносов, ₸" style="font-weight:800;color:var(--accent-ink)">'+money(total)+'</td></tr>';
   rows.innerHTML=html;
 }
