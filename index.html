@@ -278,7 +278,7 @@ tr.editing .ie{padding:7px 9px;font-size:13.5px}
       <div style="padding:14px 18px 4px"><h3 style="margin:0;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700">Взносы по людям</h3></div>
       <div class="tablewrap">
         <table class="tbl">
-          <thead><tr><th>Кто</th><th class="r">Сумма взносов</th></tr></thead>
+          <thead><tr><th>Кто</th><th class="r">Сумма взносов, ₸</th></tr></thead>
           <tbody class="rows" id="peopleRows"></tbody>
         </table>
       </div>
@@ -810,14 +810,17 @@ function money2(k,u){var a=[];if(k)a.push(money(k));if(u)a.push(money(u,'USD'));
 function renderPeople(){
   const p=kActive();const rows=$('peopleRows');const card=$('peopleCard');if(!rows||!card)return;
   if(!p){card.hidden=true;return;}
+  const cur=state.usdRate||0;
   const map={};
-  p.entries.forEach(e=>{if(e.type!=='in')return;const who=(e.party||'').trim();if(!who)return;map[who]=map[who]||{k:0,u:0};const a=e.amount||0;if(e.cur==='USD')map[who].u+=a;else map[who].k+=a;});
+  p.entries.forEach(e=>{if(e.type!=='in')return;const who=(e.party||'').trim();if(!who)return;map[who]=map[who]||{kzt:0,usd:0};const a=e.amount||0;if(e.cur==='USD'){const rt=e.rate||e.refRate||cur;map[who].kzt+=a*rt;map[who].usd+=a;}else{map[who].kzt+=a;}});
   const names=Object.keys(map);
   if(!names.length){card.hidden=true;return;}
-  const rate=state.usdRate||0;
-  names.sort((a,b)=>((map[b].k+map[b].u*rate))-((map[a].k+map[a].u*rate)));
+  names.sort((a,b)=>map[b].kzt-map[a].kzt);
+  const total=names.reduce((s,n)=>s+map[n].kzt,0);
   card.hidden=false;
-  rows.innerHTML=names.map(n=>{const m=map[n];return '<tr><td data-label="Кто"><b>'+esc(n)+'</b></td><td class="r num" data-label="Сумма взносов" style="font-weight:700">'+money2(m.k,m.u)+'</td></tr>';}).join('');
+  let html=names.map(n=>{const m=map[n];const sub=m.usd?'<span class="usd">в т.ч. '+money(m.usd,'USD')+' по курсу дня</span>':'';return '<tr><td data-label="Кто"><b>'+esc(n)+'</b></td><td class="r num" data-label="Сумма взносов, ₸" style="font-weight:700">'+money(m.kzt)+sub+'</td></tr>';}).join('');
+  html+='<tr style="background:var(--card)"><td data-label="Кто" style="font-weight:800">ИТОГО взносов</td><td class="r num" data-label="Сумма взносов, ₸" style="font-weight:800;color:var(--accent-ink)">'+money(total)+'</td></tr>';
+  rows.innerHTML=html;
 }
 function doLogin(){
   const email=($('lockEmail').value||'').trim(),pw=$('lockInput').value||'';
